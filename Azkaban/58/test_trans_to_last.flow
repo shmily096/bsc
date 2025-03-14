@@ -1,0 +1,450 @@
+nodes:
+  - name: sqlserver_to_hdfst_to_ods_to_dwd
+    type: flow
+    nodes:
+     -  name: sqlserver_to_hdfst_to_ods_to_dwd_3
+        type: command
+        config:
+            command: sh /bscflow/hdfs/server_to_dwd_sal_table.sh
+     -  name: dwd_fact_openordercn
+        type: command
+        dependsOn:
+            - sqlserver_to_hdfst_to_ods_to_dwd_3
+        config:
+            command: sh /bscflow/dwd/sqlserver_openorder_to_ods_dwd.sh trans_openordercn
+  - name: bsc_ops_db_to_hdfs_earlypart
+    type: flow
+    dependsOn:
+        - sqlserver_to_hdfst_to_ods_to_dwd
+    nodes:
+     -  name: import_export_sto
+        type: command
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'import_export_sto'
+     -  name: import_export_sto_dn
+        type: command
+        dependsOn:
+            - import_export_sto
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'import_export_sto_dn'
+     -  name: inbound_outbound_dn_mapping
+        type: command
+        dependsOn:
+            - import_export_sto_dn
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'in_out_map'
+     -  name: domestic_sto
+        type: command
+        dependsOn:
+            - inbound_outbound_dn_mapping
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'domestic_sto'
+     -  name: domestic_sto_dn
+        type: command
+        dependsOn:
+            - domestic_sto
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'domestic_sto_dn'
+     -  name: sales_order
+        type: command
+        dependsOn:
+            - domestic_sto_dn
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so'
+     -  name: so_createinfo
+        type: command
+        dependsOn:
+            - sales_order
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_createinfo'
+     -  name: so_text
+        type: command
+        dependsOn:
+            - so_createinfo
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_text'
+     -  name: so_partner
+        type: command
+        dependsOn:
+            - so_text
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_partner'
+     -  name: sales_order_dn
+        type: command
+        dependsOn:
+            - so_partner
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_dn'
+     -  name: putaway_info
+        type: command
+        dependsOn:
+            - sales_order_dn
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'putaway'
+     -  name: inventory_movement
+        type: command
+        dependsOn:
+            - putaway_info
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'movement'
+     -  name: rr_sales_froecast
+        type: command
+        dependsOn:
+            - inventory_movement
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'RRSalesForecast'
+  - name: hdfs_to_ods_1
+    type: flow
+    dependsOn:
+        - bsc_ops_db_to_hdfs_earlypart
+    nodes:
+    -   name: load_transation_into_ods
+        type: command
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_trans.sh
+  - name: ods_to_dwd_earlypart
+    type: flow
+    dependsOn:
+        - hdfs_to_ods_1
+    nodes:
+     -  name: putaway
+        type: command
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_putaway_info.sh
+     -  name: fact_import_export_sto
+        type: command
+        dependsOn:
+            - putaway        
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_import_export_sto.sh
+     -  name: fact_import_export_sto_dn
+        type: command
+        dependsOn:
+            - fact_import_export_sto
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_import_export_sto_dn.sh
+     -  name: ods_dwd_salesorder_createdinfo
+        type: command
+        dependsOn:
+            - fact_import_export_sto_dn
+        config:
+            command: sh /bscflow/dwd/ods_dwd_salesorder_createdinfo.sh
+     -  name: fact_so
+        type: command
+        dependsOn:
+            - ods_dwd_salesorder_createdinfo
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_so.sh
+     -  name: fact_inventory_movement
+        type: command
+        dependsOn:
+            - fact_so
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_inventory_movement.sh
+     -  name: fact_domestic_sto
+        type: command
+        dependsOn:
+            - fact_inventory_movement
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_domestic_sto_info.sh
+     -  name: fact_domestic_sto_dn
+        type: command
+        dependsOn:
+            - fact_domestic_sto
+            - fact_inventory_movement
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_domestic_sto_dn.sh
+     -  name: fact_cfda_upn
+        type: command
+        dependsOn:
+            - fact_domestic_sto_dn
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_dim_cfda_upn.sh
+     -  name: fact_cfda
+        type: command
+        dependsOn:
+            - fact_cfda_upn
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_dim_cfda.sh
+     -  name: fact_rr_sales_forecast
+        type: command
+        dependsOn:
+            - fact_cfda
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_rr_sales_forecast.sh
+  - name: domestic_to_hdfs
+    type: flow
+    dependsOn:
+        - ods_to_dwd_earlypart
+    nodes:
+    -   name: dwd_fact_domestic_sto_dn_info
+        type: command
+        config:
+            command: sh /bscflow/PG/Shell/onhand_delivery_to_hdfs.sh dwd_fact_domestic_sto_dn_info
+    -   name: dwd_fact_domestic_sto_dn_detail
+        type: command
+        dependsOn:
+            - dwd_fact_domestic_sto_dn_info
+        config:
+            command: sh /bscflow/PG/Shell/onhand_delivery_to_hdfs.sh dwd_fact_domestic_sto_dn_detail
+  - name: domestic_hdfs_to_pg
+    type: flow
+    dependsOn:
+        - domestic_to_hdfs
+    nodes:
+    -   name: dwd_fact_domestic_sto_dn_info_to_59_pg
+        type: command
+        config:
+            command: sh /bscflow/PG/Shell/onhand_delivery_hdfs_to_pg.sh dwd_fact_domestic_sto_dn_info
+    -   name: dwd_fact_domestic_sto_dn_detail_to_59_pg
+        type: command
+        dependsOn:
+            - dwd_fact_domestic_sto_dn_info_to_59_pg
+        config:
+            command: sh /bscflow/PG/Shell/onhand_delivery_hdfs_to_pg.sh dwd_fact_domestic_sto_dn_detail
+  - name: bsc_ops_db_to_hdfs
+    type: flow
+    dependsOn:
+        - domestic_hdfs_to_pg
+    nodes:
+     -  name: commercial_invoice_dn_mapping
+        type: command
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'invoice_dn_map'
+     -  name: work_order
+        type: command
+        dependsOn:
+            - commercial_invoice_dn_mapping
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'wo'
+     -  name: so_invoice
+        type: command
+        dependsOn:
+            - work_order
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_invoice'
+     -  name: inventory_onhand
+        type: command
+        dependsOn:
+            - so_invoice
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'onhand'
+     -  name: purchase_order
+        type: command
+        dependsOn:
+            - inventory_onhand
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'po'
+     -  name: so_receiving_confirmation_info
+        type: command
+        dependsOn:
+            - purchase_order
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'socd'
+     -  name: dealer_purchase_quotation
+        type: command
+        dependsOn:
+            - so_receiving_confirmation_info
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'dpq'
+  - name: hdfs_to_ods_2
+    type: flow
+    dependsOn:
+        - bsc_ops_db_to_hdfs
+    nodes:
+    -   name: load_master_into_ods
+        type: command
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_master.sh
+    -   name: load_transation_into_ods
+        type: command
+        dependsOn:
+            - load_master_into_ods
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_trans.sh
+  - name: ods_to_dwd
+    type: flow
+    dependsOn:
+        - hdfs_to_ods_2
+    nodes:
+     -  name: fact_sales_order_invoice
+        type: command
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_sales_order_invoice.sh
+     -  name: fact_so_dn
+        type: command
+        dependsOn:
+            - fact_sales_order_invoice
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_so_dn.sh
+     -  name: fact_work_order
+        type: command
+        dependsOn:
+            - fact_so_dn
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_work_order.sh
+     -  name: fact_dealer_purchase_quotation
+        type: command
+        dependsOn:
+            - fact_work_order
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_dealer_purchase_quotation.sh
+     -  name: fact_inventory_onhand
+        type: command
+        dependsOn:
+            - fact_dealer_purchase_quotation
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_inventory_onhand.sh
+     -  name: fact_purchase_order
+        type: command
+        dependsOn:
+            - fact_inventory_onhand
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_purchase_order.sh
+     -  name: dwd_trans_delivery_intrans
+        type: command
+        dependsOn:
+            - fact_purchase_order
+        config:
+            command: sh /bscflow/dwd/sqlserver_openorder_to_ods_dwd.sh trans_delivery_intrans
+  - name: dwd_to_dws
+    type: flow
+    dependsOn:
+        - ods_to_dwd
+    nodes:
+     -  name: dws_fact_inventory_onhand_by_mon
+        type: command
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_fact_inventory_onhand_by_mon.sh
+  - name: bsc_ops_db_to_hdfs_finalpart
+    type: flow
+    dependsOn:
+        - dwd_to_dws
+    nodes:
+    -   name: shipment_inbound_tracking
+        type: command
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'inbound_tracking'
+    -   name: ctm_customer_master
+        type: command
+        dependsOn:
+            - shipment_inbound_tracking
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'CTMCustomerMaster'
+    -   name: ctm_custom_permission_certification
+        type: command
+        dependsOn:
+            - ctm_customer_master
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'CTMCustomsPermissionCertification'
+    -   name: ctm_intergration_query
+        type: command
+        dependsOn:
+            - ctm_custom_permission_certification
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'CTMIntegrationQuery'
+    -   name: trans_ctmshipmentstatus
+        type: command
+        dependsOn:
+            - ctm_intergration_query
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'trans_ctmshipmentstatus'
+    -   name: TRANS_WorkOrder_OrdZ
+        type: command
+        dependsOn:
+            - trans_ctmshipmentstatus
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'TRANS_WorkOrder_OrdZ'
+  - name: hdfs_to_ods_finalpart
+    type: flow
+    dependsOn:
+        - bsc_ops_db_to_hdfs_finalpart
+    nodes:
+    -   name: load_master_into_ods
+        type: command
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_finalpart.sh
+    -   name: ods_trans_ctmshipmentstatus
+        type: command
+        dependsOn:
+            - load_master_into_ods
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_trans.sh 'trans_ctmshipmentstatus'
+    -   name: ods_trans_workorder_ordz
+        type: command
+        dependsOn:
+            - ods_trans_ctmshipmentstatus
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_trans.sh 'TRANS_WorkOrder_OrdZ'
+  - name: ods_to_dwd_finalpart
+    type: flow
+    dependsOn:
+        - hdfs_to_ods_finalpart
+    nodes:
+    -   name: fact_import_export_declaration
+        type: command
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_import_export_declaration.sh
+    -   name: fact_ctm_customer_master
+        type: command
+        dependsOn:
+            - fact_import_export_declaration
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_ctm_customer_master.sh
+    -   name: fact_ctm_custom_permission_certification
+        type: command
+        dependsOn:
+            - fact_ctm_customer_master
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_ctm_customsPermissionsCertification.sh
+    -   name: fact_ctm_intergration_query
+        type: command
+        dependsOn:
+            - fact_ctm_custom_permission_certification
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_ctm_intergration_query.sh
+    -   name: dwd_trans_ctmshipmentstatus
+        type: command
+        dependsOn:
+            - fact_ctm_intergration_query
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_trans_ctmshipmentstatus.sh
+    -   name: dwd_fact_So_dimensions
+        type: command
+        dependsOn:
+            - dwd_trans_ctmshipmentstatus
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_So_dimensions.sh
+    -   name: dwd_trans_workorder_ordz
+        type: command
+        dependsOn:
+            - dwd_fact_So_dimensions
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_trans_workorder_ordz.sh
+  - name: sqlserver_to_hdfs_duty_by_upn
+    type: flow
+    dependsOn:
+        - ods_to_dwd_finalpart
+    nodes:
+     -  name: duty_by_upn
+        type: command
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'DutybyUPN'
+  - name: hdfs_to_ods
+    type: flow
+    dependsOn:
+        - sqlserver_to_hdfs_duty_by_upn
+    nodes:
+     -  name: load_transation_into_ods
+        type: command
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_trans.sh 'DutybyUPN'
+  - name: ods_to_dwd_3
+    type: flow
+    dependsOn:
+        - hdfs_to_ods
+    nodes:
+     -  name: fact_duty_by_upn
+        type: command
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_duty_by_upn.sh

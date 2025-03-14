@@ -1,0 +1,161 @@
+nodes:
+  - name: bsc_ops_db_to_hdfs_earlypart
+    type: flow
+    nodes:
+     -  name: master_data
+        type: command
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'master_data'
+     -  name: import_export_sto
+        type: command
+        dependsOn:
+            - master_data
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'import_export_sto'
+     -  name: import_export_sto_dn
+        type: command
+        dependsOn:
+            - import_export_sto
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'import_export_sto_dn'
+     -  name: inbound_outbound_dn_mapping
+        type: command
+        dependsOn:
+            - master_data
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'in_out_map'
+     -  name: domestic_sto
+        type: command
+        dependsOn:
+            - master_data
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'domestic_sto'
+     -  name: domestic_sto_dn
+        type: command
+        dependsOn:
+            - domestic_sto
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'domestic_sto_dn'
+     -  name: sales_order
+        type: command
+        dependsOn:
+            - master_data
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so'
+     -  name: so_createinfo
+        type: command
+        dependsOn:
+            - sales_order
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_createinfo'
+     -  name: so_text
+        type: command
+        dependsOn:
+            - sales_order
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_text'
+     -  name: so_partner
+        type: command
+        dependsOn:
+            - sales_order
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_partner'
+     -  name: sales_order_dn
+        type: command
+        dependsOn:
+            - sales_order
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_dn'
+     -  name: putaway_info
+        type: command
+        dependsOn:
+            - master_data
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'putaway'
+     -  name: inventory_movement
+        type: command
+        dependsOn:
+            - master_data
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'movement'
+  - name: hdfs_to_ods
+    type: flow
+    dependsOn:
+        - bsc_ops_db_to_hdfs_earlypart
+    nodes:
+    -   name: load_master_into_ods
+        type: command
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_master.sh
+    -   name: load_transation_into_ods
+        type: command
+        dependsOn:
+            - load_master_into_ods
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_trans.sh
+  - name: ods_to_dwd_earlypart
+    type: flow
+    dependsOn:
+        - hdfs_to_ods
+    nodes:
+     -  name: dim_master
+        type: command
+        # sync_date format: yyyy-MM-dd  2021-07-09
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_master.sh
+     -  name: dim_material
+        type: command
+        dependsOn:
+            - dim_master
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_dim_material.sh
+     -  name: fact_import_export_sto
+        type: command
+        dependsOn:
+            - dim_material
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_import_export_sto.sh
+     -  name: fact_import_export_sto_dn
+        type: command
+        dependsOn:
+            - fact_import_export_sto
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_import_export_sto_dn.sh
+     -  name: fact_so
+        type: command
+        dependsOn:
+            - dim_material
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_so.sh
+     -  name: fact_inventory_movement
+        type: command
+        dependsOn:
+            - dim_material
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_inventory_movement.sh
+     -  name: fact_domestic_sto
+        type: command
+        dependsOn:
+            - dim_material
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_domestic_sto_info.sh
+     -  name: fact_domestic_sto_dn
+        type: command
+        dependsOn:
+            - fact_domestic_sto
+            - fact_inventory_movement
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_domestic_sto_dn.sh
+     -  name: fact_cfda_upn
+        type: command
+        dependsOn:
+            - fact_domestic_sto_dn
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_dim_cfda_upn.sh
+     -  name: fact_cfda
+        type: command
+        dependsOn:
+            - fact_domestic_sto_dn
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_dim_cfda.sh
+

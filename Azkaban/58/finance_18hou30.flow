@@ -1,0 +1,9 @@
+nodes:
+  - name: finance_pg_to_ods_dwd_dws
+    type: flow
+    nodes:
+     -  name: finance_pg_to_dws
+        type: command
+        config:
+            command: sh /bscflow/dws/finance_pg_to_dws.sh
+

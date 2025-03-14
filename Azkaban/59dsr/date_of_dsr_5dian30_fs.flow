@@ -1,0 +1,83 @@
+nodes:
+  - name: bsc_ops_db_to_hdfs_TRANS_FS10NDetail
+    type: flow
+    nodes:
+    -   name: TRANS_FS10NDetail
+        type: command
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh TRANS_FS10NDetail
+    -   name: TRANS_FS10N
+        type: command
+        dependsOn:
+            - TRANS_FS10NDetail
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh TRANS_FS10N
+  - name: hdfs_to_ods_dsr_FS
+    type: flow
+    dependsOn:
+        - bsc_ops_db_to_hdfs_TRANS_FS10NDetail
+    nodes:
+    -   name: ods_fact_trans_fs10ndetail
+        type: command
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_dsr.sh TRANS_FS10NDetail
+    -   name: ods_trans_fs10n
+        type: command
+        dependsOn:
+            - ods_fact_trans_fs10ndetail
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_dsr.sh TRANS_FS10N
+  - name: ods_to_dwd_dsr_fs
+    type: flow
+    dependsOn:
+        - hdfs_to_ods_dsr_FS
+    nodes:
+    -   name: dwd_fs_and_detail
+        type: command
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_trans_fs10n.sh
+  - name: dwd_dim_offline_transaction
+    type: flow
+    dependsOn:
+        - ods_to_dwd_dsr_fs
+    nodes:
+    -   name: offline_transaction
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_ods_dwd_dim_offline_transaction.sh offline_transaction
+  - name: dwd_dim_customer
+    type: flow
+    dependsOn:
+        - dwd_dim_offline_transaction
+    nodes:
+    -   name: dwd_dim_customer
+        type: command
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_master.sh
+  - name: dwd_to_pg_dwd_dim_customer
+    type: flow
+    dependsOn:
+        - dwd_dim_customer
+    nodes:
+    -   name: pg_dwd_dim_customer_hdfs
+        type: command
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_hdfs.sh dwd_dim_customer
+    -   name: pg_dwd_dim_customer_tableaudb
+        type: command
+        dependsOn:
+            - pg_dwd_dim_customer_hdfs
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_pg_db.sh dwd_dim_customer
+    -   name: pg_dwd_dim_material_hdfs
+        type: command
+        dependsOn:
+            - pg_dwd_dim_customer_tableaudb
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_hdfs.sh dwd_dim_material
+    -   name: pg_dwd_dim_material_tableaudb
+        type: command
+        dependsOn:
+            - pg_dwd_dim_material_hdfs
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_pg_db.sh dwd_dim_material

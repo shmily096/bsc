@@ -1,0 +1,38 @@
+nodes:
+  - name: perfectdata_to_ods
+    type: flow
+    nodes:
+    -   name: perfectpg_to_hdfs
+        type: command
+        config:
+            command: sh /bscflow/hdfs/PG/pg_db_to_hdfs_perfect.sh perfect
+    -   name: perfectpg_to_ods
+        type: command
+        dependsOn:
+            - perfectpg_to_hdfs
+        config:
+            command: sh /bscflow/hdfs/PG/hdfs_to_ods_perfect.sh perfect
+  - name: ods_to_dws_perfect
+    type: flow
+    dependsOn:
+        - perfectdata_to_ods
+    nodes:
+    -   name: dws_to_dwt_perfect
+        type: command
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_perfect.sh
+  - name: dws_to_pg_perfect
+    type: flow
+    dependsOn:
+        - ods_to_dws_perfect
+    nodes:
+    -   name: dws_perfect_to_hdfs
+        type: command
+        config:
+            command: sh /bscflow/PG/Shell/dws_perfect_to_hdfs.sh perfect
+    -   name: dws_perfect_to_pg_db
+        type: command
+        dependsOn:
+            - dws_perfect_to_hdfs
+        config:
+            command: sh /bscflow/PG/Shell/dws_perfect_to_pg_db.sh perfect

@@ -1,0 +1,9 @@
+nodes:
+  - name: pg_ods_dwd_tp
+    type: flow
+    nodes:
+    -   name: pg_ods_dwd_tp_23dian
+        type: command
+        config:
+            command: sh /SparkApp/opsdw/ods/pg_to_ods.sh
+ 

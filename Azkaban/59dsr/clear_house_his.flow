@@ -1,0 +1,9 @@
+nodes:
+  - name: clear_house
+    type: flow
+    nodes:
+    -   name: pg_to_dwd_
+        type: command
+        config:
+            command: sh /bscflow/dwd/59pg_ods_dwd_networkswitch_upnstatus_his.sh networkswitch_upnstatus
+ 

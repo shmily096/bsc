@@ -1,0 +1,8 @@
+nodes:
+  - name: hiveservice_restart
+    type: flow
+    nodes:
+     -  name: hiveservice_restart
+        type: command
+        config:
+            command: sh /root/hiveservices_restart.sh

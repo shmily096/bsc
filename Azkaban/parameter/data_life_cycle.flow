@@ -1,0 +1,458 @@
+nodes:
+  - name: bsc_ops_db_to_hdfs
+    type: flow
+    nodes:
+     -  name: master_data
+        type: command
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'master_data' ${sync_date}
+     -  name: import_export_sto
+        type: command
+        dependsOn: 
+            - master_data
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'import_export_sto' ${sync_date}
+     -  name: import_export_sto_dn
+        type: command
+        dependsOn: 
+            - import_export_sto
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'import_export_sto_dn' ${sync_date}
+     -  name: inbound_outbound_dn_mapping
+        type: command
+        dependsOn: 
+            - import_export_sto_dn
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'in_out_map' ${sync_date}
+     -  name: commercial_invoice_dn_mapping
+        type: command
+        dependsOn: 
+            - inbound_outbound_dn_mapping
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'invoice_dn_map' ${sync_date}
+     -  name: work_order
+        type: command
+        dependsOn: 
+            - master_data
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'wo' ${sync_date}
+     -  name: domestic_sto
+        type: command
+        dependsOn: 
+            - master_data
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh domestic_sto ${sync_date}
+     -  name: domestic_sto_dn
+        type: command
+        dependsOn: 
+            - domestic_sto
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'domestic_sto_dn' ${sync_date}
+     -  name: sales_order
+        type: command
+        dependsOn: 
+            - master_data
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so' ${sync_date}
+     -  name: sales_order_dn
+        type: command
+        dependsOn: 
+            - sales_order
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_dn' ${sync_date}
+     -  name: so_invoice
+        type: command
+        dependsOn: 
+            - sales_order_dn
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_invoice' ${sync_date}
+     -  name: putaway_info
+        type: command
+        dependsOn: 
+            - master_data
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'putaway' ${sync_date}
+     -  name: inventory_movement
+        type: command
+        dependsOn: 
+            - master_data
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'movement' ${sync_date}
+     -  name: inventory_onhand
+        type: command
+        dependsOn: 
+            - master_data
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'onhand' ${sync_date}
+     -  name: purchase_order
+        type: command
+        dependsOn: 
+            - master_data
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'po' ${sync_date}
+     -  name: shipment_inbound_tracking
+        type: command
+        dependsOn: 
+            - master_data
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'inbound_tracking' ${sync_date}
+     -  name: so_receiving_confirmation_info
+        type: command
+        dependsOn: 
+            - master_data
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'socd' ${sync_date}
+     -  name: dealer_purchase_quotation
+        type: command
+        dependsOn: 
+            - master_data
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'dpq' ${sync_date}
+  - name: hdfs_to_ods
+    type: flow
+    dependsOn:
+        - bsc_ops_db_to_hdfs
+    nodes:
+    -   name: load_master_into_ods
+        type: command
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_master.sh ${sync_date}
+    -   name: load_transation_into_ods
+        type: command
+        dependsOn: 
+            - load_master_into_ods
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_trans.sh ${sync_date}
+  - name: ods_to_dwd
+    type: flow
+    dependsOn:
+        - hdfs_to_ods
+    nodes:
+     -  name: dim_master
+        type: command
+        # sync_date format: yyyy-MM-dd  2021-07-09
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_master.sh ${sync_date}
+     -  name: dim_material
+        type: command
+        dependsOn: 
+            - dim_master
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_dim_material.sh ${sync_date}
+     -  name: fact_import_export_sto
+        type: command
+        dependsOn: 
+            - dim_material
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_import_export_sto.sh ${sync_date}
+     -  name: fact_import_export_sto_dn
+        type: command
+        dependsOn: 
+            - fact_import_export_sto
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_import_export_sto_dn.sh  ${sync_date}
+     -  name: fact_import_export_declaration
+        type: command
+        dependsOn: 
+            - fact_import_export_sto_dn
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_import_export_declaration.sh ${sync_date}
+     -  name: fact_domestic_sto
+        type: command
+        dependsOn: 
+            - dim_material
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_domestic_sto_info.sh ${sync_date}
+     -  name: fact_domestic_sto_dn
+        type: command
+        dependsOn: 
+            - fact_domestic_sto
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_domestic_sto_dn.sh ${sync_date}
+     -  name: fact_so
+        type: command
+        dependsOn: 
+            - dim_material
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_so.sh ${sync_date}
+     -  name: fact_so_dn
+        type: command
+        dependsOn: 
+            - fact_so
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_so_dn.sh ${sync_date}
+     -  name: fact_sales_order_invoice
+        type: command
+        dependsOn: 
+            - fact_so_dn
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_sales_order_invoice.sh ${sync_date}
+     -  name: fact_work_order
+        type: command
+        dependsOn: 
+            - dim_material
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_work_order.sh ${sync_date}
+     -  name: fact_dealer_purchase_quotation
+        type: command
+        dependsOn: 
+            - dim_material
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_dealer_purchase_quotation.sh ${sync_date}
+     -  name: fact_inventory_movement
+        type: command
+        dependsOn: 
+            - dim_material
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_inventory_movement.sh ${sync_date}
+     -  name: fact_inventory_onhand
+        type: command
+        dependsOn: 
+            - dim_material
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_inventory_onhand.sh ${sync_date}
+     -  name: fact_purchase_order
+        type: command
+        dependsOn: 
+            - dim_material
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_purchase_order.sh ${sync_date}
+  - name: dwd_to_dws
+    type: flow
+    dependsOn:
+        - ods_to_dwd
+    nodes:
+      - name: dsr_daily_trans
+        type: command
+        dependsOn: 
+            - dsr_ship_daily
+            - dsr_fulfill_daily
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_dsr_daily_trans.sh ${sync_date}
+      - name: dsr_ship_daily
+        type: command
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_dsr_ship_daily_trans.sh ${sync_date}
+      - name: dsr_fulfill_daily
+        type: command
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_dsr_fulfill_daily_trans.sh ${sync_year}
+      - name: dsr_dealer_daily
+        type: command
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_dsr_dealer_daily_transation.sh ${sync_date}
+      - name: plc_so_domestic_sto_wo_d838
+        # The product life cycle of Sales order, domestic_sto and work order
+        type: command
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_plc_so_sto_wo_daily_trans_d838.sh  ${sync_date}
+      - name: plc_so_domestic_sto_wo
+        # The product life cycle of Sales order, domestic_sto and work order of D835
+        type: command
+        dependsOn: 
+            - plc_so_domestic_sto_wo_d838
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_plc_so_sto_wo_daily_trans_d835.sh  ${sync_date}
+      - name: plc_work_order
+        type: command
+        dependsOn: 
+            - plc_so_domestic_sto_wo
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_plc_wo_daily_trans.sh  ${sync_date}
+      - name: plc_sales_order
+        type: command
+        dependsOn: 
+            - plc_so_domestic_sto_wo
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_plc_so_daily_trans.sh  ${sync_date}
+      - name: plc_import_export
+        type: command
+        dependsOn: 
+            - plc_so_domestic_sto_wo
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_plc_import_export_daily_trans.sh  ${sync_date}
+      - name: plc_domestic_sto
+        type: command
+        dependsOn: 
+            - plc_so_domestic_sto_wo
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_plc_domestic_sto_daily_trans.sh  ${sync_year}
+      - name: product_putaway_leadtime_slc
+        type: command
+        dependsOn: 
+            - plc_so_domestic_sto_wo
+            - plc_work_order
+            - plc_sales_order
+            - plc_import_export
+            - plc_domestic_sto
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_product_putaway_leadtime_slc_daily_trans.sh  ${sync_date}
+      - name: product_putaway_leadtime_yh
+        type: command
+        dependsOn: 
+            - plc_so_domestic_sto_wo
+            - plc_work_order
+            - plc_sales_order
+            - plc_import_export
+            - plc_domestic_sto
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_product_putaway_leadtime_yh_daily_trans.sh ${sync_date}
+      - name: import_export_daily_trans
+        type: command
+        dependsOn: 
+            - plc_so_domestic_sto_wo
+            - plc_import_export
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_import_export_daily_trans.sh ${sync_year}
+      - name: order_proce_by_cust_level3
+        type: command
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_order_proce_custlev3_daily_trans.sh ${sync_year}
+      - name: order_proce_by_division
+        type: command
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_order_proce_division_daily_trans.sh ${sync_date}
+      - name: order_proce_by_item_type
+        type: command
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_order_proce_tob_daily_trans.sh ${sync_date}
+      - name: plant_delivery_processing
+        type: command
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_plant_delivery_processing_daily_trans.sh ${sync_year}
+      - name: leadtime_by_t1_plant
+        type: command
+        dependsOn: 
+            - plc_sales_order
+            - plc_import_export
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_t1_plant_trans.sh ${sync_year}
+      - name: leadtime_by_forwarder
+        type: command
+        dependsOn: 
+            - plc_sales_order
+            - plc_import_export
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_forwarder_daily_trans.sh ${sync_year}
+      - name: lifecycle_leadtime_slc
+        type: command
+        dependsOn: 
+            - plc_work_order
+            - plc_sales_order
+            - plc_import_export
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_lifecycle_leadtime_slc_daily_trans.sh  ${sync_date}
+      - name: lifecycle_leadtime_yh
+        type: command
+        dependsOn: 
+            - plc_work_order
+            - plc_sales_order
+            - plc_import_export
+            - plc_domestic_sto
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_lifecycle_leadtime_yh_daily_trans.sh  ${sync_date}
+      - name: sale_order_leadtime
+        type: command
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_sale_order_leadtime_daily_trans.sh ${sync_year}
+  - name: dws_to_dwt
+    type: flow
+    dependsOn:
+        - dwd_to_dws
+    nodes:
+     -  name: dsr_dealer_quarter_trans_topic
+        type: command
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_dsr_dealer_quarter_trans.sh ${sync_date}
+     -  name: product_putaway_leadtime_slc_topic
+        type: command
+        config:
+            command: sh /bscflow/dwt/dws_dwt_product_putaway_leadtime_slc_topic.sh ${sync_date}
+     -  name: product_putaway_leadtime_yh_topic
+        type: command
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_product_putaway_leadtime_yh_topic.sh ${sync_date}
+     -  name: imported_topic
+        type: command
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_imported_topic.sh ${sync_year}
+     -  name: order_proce_custlev3_topic
+        type: command
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_order_proce_custlev3_topic.sh 
+     -  name: order_proce_division_topic
+        type: command
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_order_proce_division_topic.sh
+     -  name: order_proce_item_type_topic
+        type: command
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_order_proce_tob_topic.sh
+     -  name: plant_delivery_processing_topic
+        type: command
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_plant_delivery_processing_topic.sh
+     -  name: plant_topic
+        type: command
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_plant_topic.sh ${sync_year}
+     -  name: lifecycle_slc_summarize
+        type: command
+        dependsOn:
+            - lifecycle_leadtime_slc
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_lifecycle_slc_summarize_topic.sh ${sync_year}
+     -  name: lifecycle_yh_summarize
+        type: command
+        dependsOn:
+            - lifecycle_leadtime_yh
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_lifecycle_yh_summarize_topic.sh ${sync_year}
+     -  name: lifecycle_slcyh_summarize
+        type: command
+        dependsOn: 
+            - lifecycle_slc_summarize
+            - lifecycle_yh_summarize
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_lifecycle_slcyh_summarize_topic.sh ${sync_date}
+     -  name: lifecycle_leadtime_yh
+        type: command
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_lifecycle_leadtime_yh_topic.sh  ${sync_date}
+     -  name: lifecycle_leadtime_slc
+        type: command
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_lifecycle_leadtime_slc_topic.sh  ${sync_date}
+     -  name: lifecycle_leadtime_division_slcyh
+        type: command
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_lifecycle_leadtime_division_slcyh.sh  ${sync_date}
+     -  name: sale_order_leadtime_topic
+        type: command
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_sale_order_leadtime_topic.sh ${sync_date}
+  - name: dwt_to_ads
+    type: flow
+    dependsOn:
+        - dws_to_dwt
+    nodes:
+     -  name: product_putaway_leadtime_slc_ratio_app
+        type: command
+        config:
+            command: sh /bscflow/ads/ads_product_putaway_leadtime_slc_ratio.sh ${sync_date}
+     -  name: product_putaway_leadtime_yh_ratio_app
+        type: command
+        config:
+            command: sh /bscflow/ads/ads_product_putaway_leadtime_yh_ratio.sh ${sync_date}
+     -  name: lifecycle_leadtime_slcyh_ratio
+        type: command
+        config:
+            command: sh /bscflow/ads/ads_lifecycle_leadtime_slcyh_ratio.sh ${sync_date}
+     -  name: imported_ratio_app
+        type: command
+        config:
+            command: sh /bscflow/ads/ads_imported_ratio.sh ${sync_date}
+     -  name: sale_order_leadtime_ratio_app
+        type: command
+        config:
+            command: sh /bscflow/ads/ads_sale_order_leadtime_ratio.sh ${sync_date}

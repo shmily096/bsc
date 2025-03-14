@@ -1,0 +1,8 @@
+nodes:
+  - name: sqlserver_to_hdfst_to_ods_to_dwd
+    type: flow
+    nodes:
+     -  name: sqlserver_to_hdfst_to_ods_to_dwd_3
+        type: command
+        config:
+            command: sh /bscflow/hdfs/server_to_dwd_sal_table.sh

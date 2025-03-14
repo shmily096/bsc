@@ -1,0 +1,57 @@
+nodes:
+  - name: bsc_ops_db_to_hdfs_dsr
+    type: flow
+    nodes:
+    -   name: TRANS_ReceivingConfirmation
+        type: command
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh socd
+  - name: hdfs_to_ods_dsr
+    type: flow
+    dependsOn:
+        - bsc_ops_db_to_hdfs_dsr
+    nodes:
+    -   name: ods_so_dn_receiving_confirmation
+        type: command
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_dsr.sh ods_so_dn_receiving_confirmation
+  - name: ods_to_dwd_delivery
+    type: flow
+    dependsOn:
+        - hdfs_to_ods_dsr
+    nodes:
+    -   name: dwd_fact_sales_order_dn_info_and_detail
+        type: command
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_so_dn.sh
+  - name: delivery_to_hdfs
+    type: flow
+    dependsOn:
+        - ods_to_dwd_delivery
+    nodes:
+    -   name: dwd_fact_sales_order_dn_detail_hdfs
+        type: command
+        config:
+            command: sh /bscflow/PG/Shell/onhand_delivery_to_hdfs.sh dwd_fact_sales_order_dn_detail
+    -   name: dwd_fact_sales_order_dn_info_hdfs
+        type: command
+        dependsOn:
+            - dwd_fact_sales_order_dn_detail_hdfs
+        config:
+            command: sh /bscflow/PG/Shell/onhand_delivery_to_hdfs.sh dwd_fact_sales_order_dn_info
+  - name: hdfs_to_pg
+    type: flow
+    dependsOn:
+        - delivery_to_hdfs
+    nodes:
+    -   name: dwd_fact_sales_order_dn_detail_pg
+        type: command
+        config:
+            command: sh /bscflow/PG/Shell/onhand_delivery_hdfs_to_pg.sh dwd_fact_sales_order_dn_detail
+    -   name: dwd_fact_sales_order_dn_info_pg
+        type: command
+        dependsOn:
+            - dwd_fact_sales_order_dn_detail_pg
+        config:
+            command: sh /bscflow/PG/Shell/onhand_delivery_hdfs_to_pg.sh dwd_fact_sales_order_dn_info
+

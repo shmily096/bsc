@@ -1,0 +1,9 @@
+nodes:
+  - name: sqlserver_check
+    type: flow
+    nodes:
+    -   name: sqlserver_check_9dian
+        type: command
+        config:
+            command: sh /SparkApp/opsdw/dwd/sqlserver_check.sh
+ 

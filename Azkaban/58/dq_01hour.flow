@@ -1,0 +1,44 @@
+nodes:
+  - name: dqdata_to_ods
+    type: flow
+    nodes:
+    -   name: dqpg_to_hdfs
+        type: command
+        config:
+            command: sh /bscflow/hdfs/PG/pg_db_to_hdfs_dq.sh dq
+    -   name: dqpg_to_ods
+        type: command
+        dependsOn:
+            - dqpg_to_hdfs
+        config:
+            command: sh /bscflow/hdfs/PG/hdfs_to_ods_dq.sh dq
+  - name: ods_to_dws_dq
+    type: flow
+    dependsOn:
+        - dqdata_to_ods
+    nodes:
+    -   name: dws_to_dwt_exception
+        type: command
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_exception.sh
+    -   name: dws_to_dwt_exception2
+        type: command
+        dependsOn:
+            - dws_to_dwt_exception
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_exception_2.sh
+  - name: dws_to_pg_dq
+    type: flow
+    dependsOn:
+        - ods_to_dws_dq
+    nodes:
+    -   name: dws_dq_to_hdfs
+        type: command
+        config:
+            command: sh /bscflow/PG/Shell/dws_dq_to_hdfs.sh dq
+    -   name: dws_dq_to_pg_db
+        type: command
+        dependsOn:
+            - dws_dq_to_hdfs
+        config:
+            command: sh /bscflow/PG/Shell/dws_dq_to_pg_db.sh dq

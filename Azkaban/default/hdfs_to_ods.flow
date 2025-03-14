@@ -1,0 +1,11 @@
+nodes:
+ -  name: master
+    type: command
+    config:
+        command: sh /bscflow/ods/hdfs_to_ods_master.sh
+ -  name: transation
+    type: command
+    dependsOn: 
+        - master
+    config:
+        command: sh /bscflow/ods/hdfs_to_ods_trans.sh

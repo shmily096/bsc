@@ -1,0 +1,14 @@
+nodes:
+  - name: delete_tmp_back
+    type: flow
+    nodes:
+     -  name: delete_tmp_back_1
+        type: command
+        config:
+            command: sh /bscflow/dwd/delete_tmp_back.sh
+     -  name: check
+        type: command
+        dependsOn:
+            - delete_tmp_back_1
+        config:
+            command: sh /bscflow/dwd/check.sh

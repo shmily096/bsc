@@ -1,0 +1,127 @@
+-- PG stored procedure template for inserted or uppdated action
+
+create or replace FUNCTION dwd_dim_customer_merge(
+  new_cust_account TEXT, 
+  new_cust_name TEXT, 
+  new_cust_name2 TEXT, 
+  new_city TEXT, 
+  new_post_code TEXT, 
+  new_rg TEXT, 
+  new_searchterm TEXT, 
+  new_street TEXT, 
+  new_telephone1 TEXT, 
+  new_fax_number TEXT, 
+  new_tit TEXT, 
+  new_orblk TEXT, 
+  new_blb TEXT, 
+  new_cust_group TEXT, 
+  new_cl TEXT, 
+  new_dlv TEXT, 
+  new_del TEXT, 
+  new_cust_name3 TEXT, 
+  new_cust_name4 TEXT, 
+  new_distr TEXT, 
+  new_cust_b TEXT, 
+  new_transp_zone TEXT, 
+  new_country TEXT, 
+  new_delete_flag TEXT, 
+  new_tfn TEXT, 
+  new_level1_code TEXT, 
+  new_level1_english_name TEXT, 
+  new_level2_code TEXT, 
+  new_level2_english_name TEXT, 
+  new_level3_code TEXT, 
+  new_level3_english_name TEXT, 
+  new_level4_code TEXT, 
+  new_business_category TEXT , 
+  new_telebox_nr TEXT , 
+  new_payment_block TEXT , 
+  new_master_record TEXT , 
+  new_type_of_business TEXT , 
+  new_created_by TEXT , 
+  new_create_dt TEXT , 
+  new_customer_sales TEXT , 
+  new_account_nr TEXT , 
+  new_company_code TEXT , 
+  new_tax_category TEXT , 
+  new_tax_classification TEXT , 
+  new_sapid TEXT, 
+  new_dealername TEXT, 
+  new_dealertype TEXT, 
+  new_parentsapid TEXT, 
+  new_parentdealername TEXT, 
+  new_parentdealertype TEXT, 
+  new_isactiveindms TEXT,
+  new_dt date)
+RETURNS VOID AS
+$$
+
+BEGIN
+    
+    LOOP
+        -- first try to update the key
+        -- not there, so try to insert the key
+        -- if someone else inserts the same key concurrently,
+        -- we could get a unique-key failure
+        BEGIN
+            INSERT INTO dwd_dim_customer(cust_account, cust_name, cust_name2, city, post_code, rg, searchterm, street, telephone1, fax_number, tit, orblk, blb, cust_group, cl, dlv, del, cust_name3, cust_name4, distr, cust_b, transp_zone, country, delete_flag, tfn, level1_code, level1_english_name, level2_code, level2_english_name, level3_code, level3_english_name, level4_code, business_category, telebox_nr, payment_block, master_record, type_of_business, created_by, create_dt, customer_sales, account_nr, company_code, tax_category, tax_classification, sapid, dealername, dealertype, parentsapid, parentdealername, parentdealertype, isactiveindms, dt)
+             VALUES ( new_cust_account , 
+                new_cust_name , 
+                new_cust_name2 , 
+                new_city , 
+                new_post_code , 
+                new_rg , 
+                new_searchterm , 
+                new_street , 
+                new_telephone1 , 
+                new_fax_number , 
+                new_tit , 
+                new_orblk , 
+                new_blb , 
+                new_cust_group , 
+                new_cl , 
+                new_dlv , 
+                new_del , 
+                new_cust_name3 , 
+                new_cust_name4 , 
+                new_distr , 
+                new_cust_b , 
+                new_transp_zone , 
+                new_country , 
+                new_delete_flag , 
+                new_tfn , 
+                new_level1_code , 
+                new_level1_english_name , 
+                new_level2_code , 
+                new_level2_english_name , 
+                new_level3_code , 
+                new_level3_english_name , 
+                new_level4_code , 
+                new_business_category  , 
+                new_telebox_nr  , 
+                new_payment_block  , 
+                new_master_record  , 
+                new_type_of_business  , 
+                new_created_by  , 
+                new_create_dt  , 
+                new_customer_sales  , 
+                new_account_nr  , 
+                new_company_code  , 
+                new_tax_category  , 
+                new_tax_classification  , 
+                new_sapid , 
+                new_dealername , 
+                new_dealertype , 
+                new_parentsapid , 
+                new_parentdealername , 
+                new_parentdealertype , 
+                new_isactiveindms ,
+                new_dt );
+            RETURN;
+        EXCEPTION WHEN unique_violation THEN
+            -- Do nothing, and loop to try the UPDATE again.
+        END;
+    END LOOP;
+END;
+$$
+LANGUAGE plpgsql;

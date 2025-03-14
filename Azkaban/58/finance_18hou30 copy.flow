@@ -1,0 +1,26 @@
+nodes:
+  - name: finance_pg_to_ods_dwd
+    type: flow
+    nodes:
+     -  name: finance_monthly_opex_cs
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh finance_monthly_opex_cs
+     -  name: finance_monthly_opex_freight
+        type: command
+        dependsOn:
+            - finance_monthly_opex_cs
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh finance_monthly_opex_freight
+     -  name: finance_monthly_opex_ocogs
+        type: command
+        dependsOn:
+            - finance_monthly_opex_freight
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh finance_monthly_opex_ocogs
+     -  name: finance_ocogs_report_china_hfm
+        type: command
+        dependsOn:
+            - finance_monthly_opex_ocogs
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh finance_ocogs_report_china_hfm

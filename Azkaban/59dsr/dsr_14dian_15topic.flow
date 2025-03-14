@@ -1,0 +1,35 @@
+nodes:
+  - name: le_srr
+    type: flow
+    nodes:
+    -   name: dwd_dim_le_srr
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh dsr_le_srr
+  - name: dwt_dsr_topic
+    type: flow
+    dependsOn:
+        - le_srr
+    nodes:
+    -   name: dwt_dsr_topic
+        type: command
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_dsr_topic.sh
+  - name: dwt_to_hdfs_dsr
+    type: flow
+    dependsOn:
+        - dwt_dsr_topic
+    nodes:
+    -   name: dwt_dsr_topic_hdfs
+        type: command
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_hdfs.sh dwt_dsr_topic
+  - name: hdfs_to_pg_dsr
+    type: flow
+    dependsOn:
+        - dwt_to_hdfs_dsr
+    nodes:
+    -   name: dwt_dsr_topic_pg
+        type: command
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_pg_db.sh dwt_dsr_topic

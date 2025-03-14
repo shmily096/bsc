@@ -1,0 +1,27 @@
+nodes:
+  - name: bsc_ops_db_to_hdfs_dsr
+    type: flow
+    nodes:
+    -   name: TRANS_QuotaDealerPurchase
+        type: command
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh dpq
+  - name: hdfs_to_ods_dsr
+    type: flow
+    dependsOn:
+        - bsc_ops_db_to_hdfs_dsr
+    nodes:
+    -   name: ods_dealer_purchase_quotation
+        type: command
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_dsr.sh ods_dealer_purchase_quotation
+  - name: ods_to_dwd_dsr
+    type: flow
+    dependsOn:
+        - hdfs_to_ods_dsr
+    nodes:
+    -   name: dwd_fact_dealer_purchase_quotation
+        type: command
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_dealer_purchase_quotation.sh
+

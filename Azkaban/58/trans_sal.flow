@@ -1,0 +1,14 @@
+nodes:
+  - name: sqlserver_to_hdfst_to_ods_to_dwd
+    type: flow
+    nodes:
+     -  name: sqlserver_to_hdfst_to_ods_to_dwd_3
+        type: command
+        config:
+            command: sh /bscflow/hdfs/server_to_dwd_sal_table.sh
+     -  name: dwd_fact_openordercn
+        type: command
+        dependsOn:
+            - sqlserver_to_hdfst_to_ods_to_dwd_3
+        config:
+            command: sh /bscflow/dwd/sqlserver_openorder_to_ods_dwd.sh trans_openordercn

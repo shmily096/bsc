@@ -1,0 +1,8 @@
+nodes:
+  - name: sparkservice_restart
+    type: flow
+    nodes:
+     -  name: sparkservice_restart
+        type: command
+        config:
+            command: sh /root/sparkservices_restart.sh

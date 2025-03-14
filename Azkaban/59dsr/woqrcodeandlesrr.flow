@@ -1,0 +1,26 @@
+nodes:
+  - name: le_srr
+    type: flow
+    nodes:
+    -   name: dwd_dim_le_srr
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh dsr_le_srr
+  - name: upn_change_bu
+    type: flow
+    dependsOn:
+        - le_srr
+    nodes:
+    -   name: dwd_upn_change_bu
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh upn_change_bu
+  - name: dwd_dim_customer_rebaterate
+    type: flow
+    dependsOn:
+        - upn_change_bu
+    nodes:
+    -   name: dwd_dim_customer_rebaterate
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh dsr_customer_rebate

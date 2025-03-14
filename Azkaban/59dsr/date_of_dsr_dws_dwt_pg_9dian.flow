@@ -1,0 +1,230 @@
+nodes:
+  - name: bsc_ops_db_to_hdfs_dsr
+    type: flow
+    nodes:
+    -   name: TRANS_InventoryOnhand
+        type: command
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh onhand
+    -   name: TRANS_Invoice
+        type: command
+        dependsOn:
+            - TRANS_InventoryOnhand
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh so_invoice
+  - name: hdfs_to_ods_dsr
+    type: flow
+    dependsOn:
+        - bsc_ops_db_to_hdfs_dsr
+    nodes:
+    -   name: ods_inventory_onhand
+        type: command
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_dsr.sh ods_inventory_onhand
+    -   name: ods_so_invoice
+        type: command
+        dependsOn:
+            - ods_inventory_onhand
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_dsr.sh ods_so_invoice
+  - name: ods_to_dwd_dsr
+    type: flow
+    dependsOn:
+        - hdfs_to_ods_dsr
+    nodes:
+    -   name: dwd_fact_inventory_onhand
+        type: command
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_inventory_onhand.sh
+    -   name: dwd_fact_inventory_onhand_hdfs
+        type: command
+        dependsOn:
+            - dwd_fact_inventory_onhand
+        config:
+            command: sh /bscflow/PG/Shell/onhand_delivery_to_hdfs.sh dwd_fact_inventory_onhand
+    -   name: dwd_fact_inventory_onhand_pg
+        type: command
+        dependsOn:
+            - dwd_fact_inventory_onhand_hdfs
+        config:
+            command: sh /bscflow/PG/Shell/onhand_delivery_hdfs_to_pg.sh dwd_fact_inventory_onhand
+    -   name: dwd_fact_sales_order_invoice
+        type: command
+        dependsOn:
+            - dwd_fact_inventory_onhand_pg
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_sales_order_invoice.sh
+  - name: dwd_to_dws_dsr
+    type: flow
+    dependsOn:
+        - ods_to_dwd_dsr
+    nodes:
+    -   name: dws_dsr_dned_daily
+        type: command
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_dsr_dned_daily.sh
+    -   name: dws_dsr_billed_daily
+        type: command
+        dependsOn:
+            - dws_dsr_dned_daily
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_dsr_billed_daily.sh
+    -   name: dws_dsr_fulfill_daily
+        type: command
+        dependsOn:
+            - dws_dsr_billed_daily
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_dsr_fulfill_month.sh
+    -   name: dws_dsr_cr_daily
+        type: command
+        dependsOn:
+            - dws_dsr_fulfill_daily
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_dsr_cr_month.sh
+    -   name: dws_dsr_dealer_daily_transation
+        type: command
+        dependsOn:
+            - dws_dsr_cr_daily
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_dsr_dealer_daily_transaction.sh
+  - name: dws_to_dwt_dsr
+    type: flow
+    dependsOn:
+        - dwd_to_dws_dsr
+    nodes:
+    -   name: dwt_dsr_topic
+        type: command
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_dsr_topic.sh
+    -   name: dwt_dsr_dealer_topic
+        type: command
+        dependsOn:
+            - dwt_dsr_topic
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_dsr_dealer_topic.sh
+  - name: dwt_to_hdfs_dsr
+    type: flow
+    dependsOn:
+        - dws_to_dwt_dsr
+    nodes:
+    -   name: dwt_dsr_topic_hdfs
+        type: command
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_hdfs.sh dwt_dsr_topic
+    -   name: dwt_dsr_dealer_topic_hdfs
+        type: command
+        dependsOn:
+            - dwt_dsr_topic_hdfs
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_hdfs.sh dwt_dsr_dealer_topic
+    -   name: dws_dsr_dned_daily
+        type: command
+        dependsOn:
+            - dwt_dsr_dealer_topic_hdfs
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_hdfs.sh dws_dsr_dned_daily
+    -   name: dws_dsr_billed_daily
+        type: command
+        dependsOn:
+            - dwt_dsr_dealer_topic_hdfs
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_hdfs.sh dws_dsr_billed_daily
+    -   name: dws_dsr_cr_daily
+        type: command
+        dependsOn:
+            - dws_dsr_billed_daily
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_hdfs.sh dws_dsr_cr_daily
+    -   name: dws_dsr_fulfill_monthly
+        type: command
+        dependsOn:
+            - dws_dsr_cr_daily
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_hdfs.sh dws_dsr_fulfill_monthly
+    -   name: dws_dsr_dealer_daily_transation
+        type: command
+        dependsOn:
+            - dws_dsr_fulfill_monthly
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_hdfs.sh dws_dsr_dealer_daily_transation
+  - name: hdfs_to_pg_dsr
+    type: flow
+    dependsOn:
+        - dwt_to_hdfs_dsr
+    nodes:
+    -   name: dwt_dsr_topic_pg
+        type: command
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_pg_db.sh dwt_dsr_topic
+    -   name: dwt_dsr_dealer_topic_pg
+        type: command
+        dependsOn:
+            - dwt_dsr_topic_pg
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_pg_db.sh dwt_dsr_dealer_topic
+    -   name: dws_dsr_dned_daily_pg
+        type: command
+        dependsOn:
+            - dwt_dsr_dealer_topic_pg
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_pg_db.sh dws_dsr_dned_daily
+    -   name: dws_dsr_billed_daily_pg
+        type: command
+        dependsOn:
+            - dws_dsr_dned_daily_pg
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_pg_db.sh dws_dsr_billed_daily
+    -   name: dws_dsr_cr_daily_pg
+        type: command
+        dependsOn:
+            - dws_dsr_billed_daily_pg
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_pg_db.sh dws_dsr_cr_daily
+    -   name: dws_dsr_fulfill_monthly
+        type: command
+        dependsOn:
+            - dws_dsr_cr_daily_pg
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_pg_db.sh dws_dsr_fulfill_monthly
+    -   name: dws_dsr_dealer_daily_transation
+        type: command
+        dependsOn:
+            - dws_dsr_fulfill_monthly
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_pg_db.sh dws_dsr_dealer_daily_transation
+  - name: clear_inventory
+    type: flow
+    dependsOn:
+        - hdfs_to_pg_dsr
+    nodes:
+    -   name: dws_opendn_dned_daily
+        type: command
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_opendn_dned_daily.sh
+    -   name: dwt_networkswitch_qtycompare
+        type: command
+        dependsOn:
+            - dws_opendn_dned_daily
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_networkswitch_qtycompare.sh dwt_networkswitch_qtycompare
+    -   name: dwt_networkswitch_qtycompare_hdfs
+        type: command
+        dependsOn:
+            - dwt_networkswitch_qtycompare
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_hdfs.sh dwt_networkswitch_qtycompare
+    -   name: dwt_networkswitch_qtycompare_pg
+        type: command
+        dependsOn:
+            - dwt_networkswitch_qtycompare_hdfs
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_pg_db.sh dwt_networkswitch_qtycompare
+  - name: dwd_to_dws_onhand
+    type: flow
+    dependsOn:
+        - clear_inventory
+    nodes:
+     -  name: dws_fact_inventory_onhand_by_mon
+        type: command
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_fact_inventory_onhand_by_mon.sh

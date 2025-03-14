@@ -1,0 +1,62 @@
+nodes:
+  - name: bsc_ops_db_to_hdfs_dsr
+    type: flow
+    nodes:
+    -   name: TRANS_SalesDelivery
+        type: command
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh so_dn
+    -   name: TRANS_SalesOrder
+        type: command
+        dependsOn:
+            - TRANS_SalesDelivery
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh so
+    -   name: TRANS_InventoryTransactions
+        type: command
+        dependsOn:
+            - TRANS_SalesOrder
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh movement
+  - name: hdfs_to_ods_dsr
+    type: flow
+    dependsOn:
+        - bsc_ops_db_to_hdfs_dsr
+    nodes:
+    -   name: ods_sales_delivery
+        type: command
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_dsr.sh ods_sales_delivery
+    -   name: ods_sales_order
+        type: command
+        dependsOn:
+            - ods_sales_delivery
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_dsr.sh ods_sales_order
+    -   name: ods_inventory_movement_trans
+        type: command
+        dependsOn:
+            - ods_sales_order
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_trans.sh TRANS_InventoryTransactions
+  - name: ods_to_dwd_dsr
+    type: flow
+    dependsOn:
+        - hdfs_to_ods_dsr
+    nodes:
+    -   name: dwd_fact_sales_order_info
+        type: command
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_so.sh
+    -   name: dwd_fact_openordercn
+        type: command
+        dependsOn:
+            - dwd_fact_sales_order_info
+        config:
+            command: sh /bscflow/dwd/sqlserver_openorder_to_ods_dwd.sh trans_openordercn
+    -   name: dwd_fact_inventory_movement
+        type: command
+        dependsOn:
+            - dwd_fact_openordercn
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_inventory_movement.sh       

@@ -1,0 +1,11 @@
+nodes:
+ -  name: wo_qr_local_to_ods
+    type: command
+    config:
+        command: sh /bscflow/ods/wo_qr_local_to_ods.sh ${start} ${end}
+ -  name: ods_to_dwd_wo_qr
+    type: command
+    dependsOn: 
+        - wo_qr_local_to_ods
+    config:
+        command: sh /bscflow/dwd/ods_to_dwd_wo_qr.sh

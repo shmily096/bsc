@@ -1,0 +1,26 @@
+nodes:
+  - name: sqlserver_to_hdfs_duty_by_upn
+    type: flow
+    nodes:
+     -  name: duty_by_upn
+        type: command
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'DutybyUPN'
+  - name: hdfs_to_ods
+    type: flow
+    dependsOn:
+        - sqlserver_to_hdfs_duty_by_upn
+    nodes:
+     -  name: load_transation_into_ods
+        type: command
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_trans.sh 'DutybyUPN'
+  - name: ods_to_dwd
+    type: flow
+    dependsOn:
+        - hdfs_to_ods
+    nodes:
+     -  name: fact_duty_by_upn
+        type: command
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_duty_by_upn.sh

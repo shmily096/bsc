@@ -1,0 +1,10 @@
+32	EP	LP,LS,T1	Level2				0.050 
+18	Endo	LP,LS,T1	ProductLine1	Endo-耗材:0.05			0.000
+18	Endo	HD					0.000 
+34	Pul	LP,LS,T1	ProductLine2	BT Equipment:0.00			0.060
+10	PION	LP,LS,T1	ProductLine2	AnjioJet设备:0.00	ProductLine3	Zipwire:0.00,电极针:0.00	0.060
+17	IC	LP	ProductLine1	VA:0.02	ProductLine2	CTO:0.02,Synergy:0.02,IVUS耗材:0.02,切割球囊:0.02,旋磨耗材:0.02,MAMBA微导管:0.02	0.000
+17	IC	LS,T1	ProductLine1	VA:0.03	ProductLine2	CTO:0.02,Synergy:0.03,IVUS耗材:0.03,切割球囊:0.03,旋磨耗材:0.03,MAMBA微导管:0.03	0.000
+35	SH						0.020 
+19	CRM		ProductLine1	CRM:0.05			0.000 
+22	URO	LP,LS,T1	ProductLine2	泌尿设备:0.0,设备光纤:0.0			0.515

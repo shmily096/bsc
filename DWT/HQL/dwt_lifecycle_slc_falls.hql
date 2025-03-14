@@ -1,0 +1,27 @@
+-- Hive SQL
+-- Function： 
+---行数据表示：
+-- History: 
+-- 2021-06-25    Donny   v1.0    init
+
+drop table if exists dwt_lifecycle_slc_falls;
+create external table dwt_lifecycle_slc_falls
+(    pgi_month    string, 
+     pgi_year   string,
+     product_line1   string, 
+     product_line2    string, 
+     product_line3    string, 
+     product_line4    string, 
+     product_line5   string, 
+     cust_level1    string, 
+     cust_level2    string, 
+     cust_level3    string, 
+     cust_level4    string,
+     leadtime_section  string,
+     leadtime   float    
+) comment 'lifecycle瀑布图'
+partitioned by(dt_year string,dt_month string)
+stored as parquet
+location '/bsc/opsdw/dwt/dwt_lifecycle_slc_falls/'
+tblproperties ("parquet.compression"="lzo");
+

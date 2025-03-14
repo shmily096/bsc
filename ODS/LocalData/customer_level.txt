@@ -1,0 +1,21 @@
+CHANNEL	Channel Account	渠道账号	RMB	Renminbi Business Account	以人民币结算的客户	LP	Logistic Platform	平台	CHANNEL-LP	平台	Sales Revenue
+CHANNEL	Channel Account	渠道账号	RMB	Renminbi Business Account	以人民币结算的客户	LS	Logistic Service	物流配送商	CHANNEL-LS	物流配送商	Sales Revenue
+CHANNEL	Channel Account	渠道账号	RMB	Renminbi Business Account	以人民币结算的客户	T1	Tier 1 Dealer	一级经销商	CHANNEL-T1	一级经销商	Sales Revenue
+CHANNEL	Channel Account	渠道账号	RMB	Renminbi Business Account	以人民币结算的客户	T2	Tier 2 Dealer	二级经销商	CHANNEL-T2	二级经销商	Sales Revenue
+CHANNEL	Channel Account	渠道账号	NON-RMB	Non Renminbi Business Account	以非人民币结算的客户	FT	Foreign Trade Dealer	外贸客户	CHANNEL-FTC	外贸客户	Sales Revenue
+HOSP	Hospital Account	医院账号	PB	Public Hospital Account	公立医院	CH	Channel Hospital	渠道医院	HOSP-CH-PB	渠道公立医院	Sales Revenue
+HOSP	Hospital Account	医院账号	PB	Public Hospital Account	公立医院	DH	Direct Sales Hospital	直销医院	HOSP-DS-PB	直销公立医院	Sales Revenue
+HOSP	Hospital Account	医院账号	PB	Public Hospital Account	公立医院	CLIN	Clinical Trail Account	临床医院	HOSP-CT-PB	公立临床医院	Clinical Trial
+HOSP	Hospital Account	医院账号	PB	Public Hospital Account	公立医院	CE	Capital Equipment Account	设备售后医院	HOSP-CE-PB	公立设备售后医院	Capital Equipment Service
+HOSP	Hospital Account	医院账号	PV	Private Hospital Account	私立医院	CH	Channel Hospital	渠道医院	HOSP-CH-PV	渠道私立医院	Sales Revenue
+HOSP	Hospital Account	医院账号	PV	Private Hospital Account	私立医院	DH	Direct Sales Hospital	直销医院	HOSP-DS-PV	直销私立医院	Sales Revenue
+HOSP	Hospital Account	医院账号	PV	Private Hospital Account	私立医院	CLIN	Clinical Trail Account	临床医院	HOSP-CT-PV	私立临床医院	Clinical Trial
+HOSP	Hospital Account	医院账号	PV	Private Hospital Account	私立医院	CE	Capital Equipment Account	设备售后医院	HOSP-CE-PV	私立设备售后医院	Capital Equipment Service
+INTER	Internal Account	内部账号	BR	Business Related Account	销售支持类账号	SRAI	Sales Rep Assigned Inventory	内部个人账号 - 销售	INTER-BR-SRAI	内部个人账号 - 销售	Sales Supportive
+INTER	Internal Account	内部账号	BR	Business Related Account	销售支持类账号	FSEAI	Field Service Engineer Assigned Inventory	内部个人账号 - 现场服务工程师	INTER-BR-FSEAI	内部个人账号 - 现场服务工程师	Sales Supportive
+INTER	Internal Account	内部账号	SA	Shared Account	内部共享账号	CM	Commercial Sample	内部共享账号 - 商业样品	INTER-SA-CM	内部共享账号 - 商业样品	Sales Supportive
+INTER	Internal Account	内部账号	SA	Shared Account	内部共享账号	RA	Registration Sample	内部共享账号 - 注册样品	INTER-SA-RA	内部共享账号 - 注册样品	Regulation Supportive
+INTER	Internal Account	内部账号	SA	Shared Account	内部共享账号	PSS	Capital Equipment Pre-sales Service	内部共享账号 - 设备售前服务	INTER-SA-PSS	内部共享账号 - 设备售前服务	Capital Equipment Service
+INTER	Internal Account	内部账号	SA	Shared Account	内部共享账号	ASS	Capital Equipment  After-sales Service	内部共享账号 - 设备售后服务	INTER-SA-ASS	内部共享账号 - 设备售后服务	Capital Equipment Service
+INTER	Internal Account	内部账号	SA	Shared Account	内部共享账号	CC	China Customs Account (JYJY)	内部共享账号 - 海关检验检疫	INTER-SA-CC	内部共享账号 - 海关检验检疫	Regulation Supportive
+INTER	Internal Account	内部账号	SA	Shared Account	内部共享账号	SRR	BSC Internal Financial Adjustment	内部共享账号 - Sales Revenue Reserve (SRR)	INTER-AA-SRR	内部共享账号 - Sales Revenue Reserve (SRR)	Internal Use

@@ -1,0 +1,88 @@
+nodes:
+ -  name: dim_master
+    type: command
+    # sync_date format: yyyy-MM-dd  2021-07-09
+    config:
+        command: sh /bscflow/dwd/ods_to_dwd_master.sh ${sync_date}
+ -  name: dim_material
+    type: command
+    config:
+        command: sh /bscflow/dwd/ods_to_dwd_dim_material.sh ${sync_date}
+ -  name: fact_import_export_sto
+    type: command
+    dependsOn: 
+        - dim_material
+    config:
+        command: sh /bscflow/dwd/ods_to_dwd_import_export_sto.sh ${sync_date}
+ -  name: fact_import_export_sto_dn
+    type: command
+    dependsOn: 
+        - fact_import_export_sto
+    config:
+        command: sh /bscflow/dwd/ods_to_dwd_import_export_sto_dn.sh  ${sync_date}
+ -  name: fact_import_export_declaration
+    type: command
+    dependsOn: 
+        - fact_import_export_sto_dn
+    config:
+        command: sh /bscflow/dwd/ods_to_dwd_fact_import_export_declaration.sh ${sync_date}
+ -  name: fact_domestic_sto
+    type: command
+    dependsOn: 
+        - dim_material
+    config:
+        command: sh /bscflow/dwd/ods_to_dwd_fact_domestic_sto_info.sh ${sync_date}
+ -  name: fact_domestic_sto_dn
+    type: command
+    dependsOn: 
+        - fact_domestic_sto
+    config:
+        command: sh /bscflow/dwd/ods_to_dwd_fact_domestic_sto_dn.sh ${sync_date}
+ -  name: fact_so
+    type: command
+    dependsOn: 
+        - dim_material
+    config:
+        command: sh /bscflow/dwd/ods_to_dwd_fact_so.sh ${sync_date}
+ -  name: fact_so_dn
+    type: command
+    dependsOn: 
+        - fact_so
+    config:
+        command: sh /bscflow/dwd/ods_to_dwd_fact_so_dn.sh ${sync_date}
+ -  name: fact_sales_order_invoice
+    type: command
+    dependsOn: 
+        - fact_so_dn
+    config:
+        command: sh /bscflow/dwd/ods_to_dwd_fact_sales_order_invoice.sh ${sync_date}
+ -  name: fact_work_order
+    type: command
+    dependsOn: 
+        - dim_material
+    config:
+        command: sh /bscflow/dwd/ods_to_dwd_fact_work_order.sh ${sync_date}
+ -  name: fact_dealer_purchase_quotation
+    type: command
+    dependsOn: 
+        - dim_material
+    config:
+        command: sh /bscflow/dwd/ods_to_dwd_fact_dealer_purchase_quotation.sh ${sync_date}
+ -  name: fact_inventory_movement
+    type: command
+    dependsOn: 
+        - dim_material
+    config:
+        command: sh /bscflow/dwd/ods_to_dwd_fact_inventory_movement.sh ${sync_date}
+ -  name: fact_inventory_onhand
+    type: command
+    dependsOn: 
+        - dim_material
+    config:
+        command: sh /bscflow/dwd/ods_to_dwd_fact_inventory_onhand.sh ${sync_date}
+ -  name: fact_purchase_order
+    type: command
+    dependsOn: 
+        - dim_material
+    config:
+        command: sh /bscflow/dwd/ods_to_dwd_fact_purchase_order.sh ${sync_date}

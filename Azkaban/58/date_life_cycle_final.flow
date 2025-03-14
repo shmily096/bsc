@@ -1,0 +1,104 @@
+nodes:
+  - name: bsc_ops_db_to_hdfs_finalpart
+    type: flow
+    nodes:
+    -   name: shipment_inbound_tracking
+        type: command
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'inbound_tracking'
+    -   name: ctm_customer_master
+        type: command
+        dependsOn:
+            - shipment_inbound_tracking
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'CTMCustomerMaster'
+    -   name: ctm_custom_permission_certification
+        type: command
+        dependsOn:
+            - ctm_customer_master
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'CTMCustomsPermissionCertification'
+    -   name: ctm_intergration_query
+        type: command
+        dependsOn:
+            - ctm_custom_permission_certification
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'CTMIntegrationQuery'
+    -   name: trans_ctmshipmentstatus
+        type: command
+        dependsOn:
+            - ctm_intergration_query
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'trans_ctmshipmentstatus'
+    -   name: TRANS_WorkOrder_OrdZ
+        type: command
+        dependsOn:
+            - trans_ctmshipmentstatus
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'TRANS_WorkOrder_OrdZ'
+  - name: hdfs_to_ods_finalpart
+    type: flow
+    dependsOn:
+        - bsc_ops_db_to_hdfs_finalpart
+    nodes:
+    -   name: load_master_into_ods
+        type: command
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_finalpart.sh
+    -   name: ods_trans_ctmshipmentstatus
+        type: command
+        dependsOn:
+            - load_master_into_ods
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_trans.sh 'trans_ctmshipmentstatus'
+    -   name: ods_trans_workorder_ordz
+        type: command
+        dependsOn:
+            - ods_trans_ctmshipmentstatus
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_trans.sh 'TRANS_WorkOrder_OrdZ'
+  - name: ods_to_dwd_finalpart
+    type: flow
+    dependsOn:
+        - hdfs_to_ods_finalpart
+    nodes:
+    -   name: fact_import_export_declaration
+        type: command
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_import_export_declaration.sh
+    -   name: fact_ctm_customer_master
+        type: command
+        dependsOn:
+            - fact_import_export_declaration
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_ctm_customer_master.sh
+    -   name: fact_ctm_custom_permission_certification
+        type: command
+        dependsOn:
+            - fact_ctm_customer_master
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_ctm_customsPermissionsCertification.sh
+    -   name: fact_ctm_intergration_query
+        type: command
+        dependsOn:
+            - fact_ctm_custom_permission_certification
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_ctm_intergration_query.sh
+    -   name: dwd_trans_ctmshipmentstatus
+        type: command
+        dependsOn:
+            - fact_ctm_intergration_query
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_trans_ctmshipmentstatus.sh
+    -   name: dwd_fact_So_dimensions
+        type: command
+        dependsOn:
+            - dwd_trans_ctmshipmentstatus
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_So_dimensions.sh
+    -   name: dwd_trans_workorder_ordz
+        type: command
+        dependsOn:
+            - dwd_fact_So_dimensions
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_trans_workorder_ordz.sh

@@ -1,0 +1,8 @@
+nodes:
+  - name: sqlserver_check
+    type: flow
+    nodes:
+    -   name: sqlserver_check_9dian
+        type: command
+        config:
+            command: /root/anaconda3/bin/python  /root/adm_excle_run/adm_excle_last.py

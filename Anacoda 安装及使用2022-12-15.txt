@@ -1,0 +1,112 @@
+#安装anacoda3步骤，首先官网下载安装包，然后上传服务器，执行下面的命令
+sh Anaconda3-2018.12-Linux-x86_64.sh
+#激活anacoda虚拟环境
+ source /root/anaconda3/etc/profile.d/conda.sh
+ #验证是否成功，没报错就行
+ conda
+#取bin目录
+ cd /root/anaconda3/bin
+#下面是打开网页版anacoda的，由于不能关闭防火墙所以不用管
+ ./jupyter notebook --NotebookApp.ip='0.0.0.0' --allow-root
+#下面这个不用了，因为进来之后已经自动执行该命令
+source ~/.bashrc
+
+
+#使用：
+#进入python环境
+fortunePython
+#推出python环境
+exit()
+
+#执行python脚本
+ /root/anaconda3/pkgs/python-3.7.1-h0371630_7/bin/python /root/anaconda3/text.py
+
+
+#编写数据库连接配置 /root/anaconda3/config/connection.ini
+[sqlserver]
+server =10.226.99.103:16000
+user =opsWin
+password =opsWinZaq1@wsx
+database =APP_OPS
+#sqlserver_appops的连接配置文件
+
+#编写查询sql脚本 /root/anaconda3/config/query.py
+from datetime import date, timedelta, datetime
+
+today = date.today() 
+yesterday = today - timedelta(days=1)
+today_Ymd = today.strftime("%Y-%m-%d")
+yesterday_Ymd = yesterday.strftime("%Y-%m-%d")
+current_year = today.strftime("%Y")
+current_month = today.strftime("%m")
+next_year = int(current_year) + 1
+current_datetiem = datetime.now()
+current_YmdH = current_datetiem.strftime("%Y-%m-%d-%H")
+current_Hour = current_datetiem.strftime("%H") # 24小时制的小时
+
+TRANS_FS10N_query = f"""
+SELECT Credit, 
+'{today}',
+'{yesterday}',
+'{today_Ymd}',
+'{yesterday_Ymd}',
+'{current_year}',
+'{current_month}',
+'{next_year}',
+'{current_datetiem}',
+'{current_YmdH}',
+'{current_Hour}'
+FROM TRANS_FS10N 
+where [Year] ={current_year} and Period ='{current_month}'
+"""
+#[(1282691.75, '2022-12-15', '2022-12-14', '2022-12-15', '2022-12-14', '2022', '12', '2023', '2022-12-15 15:12:45.070657', '2022-12-15-15', '15')]
+
+table_maps = {
+    'TRANS_FS10N': TRANS_FS10N_query
+}
+
+
+#编写数据库连接测试脚本/root/anaconda3/text.py
+import pymssql
+from configparser import ConfigParser
+from config import query
+
+select_query ='TRANS_FS10N'
+cfg = ConfigParser()
+cfg.read("/root/anaconda3/config/connection.ini",encoding="utf-8")
+
+db_cfg = dict(cfg.items("sqlserver"))
+#下面的两个**是必须加的不然会报错
+conn = pymssql.connect(**db_cfg)
+cursor = conn.cursor()
+query_sql_str = query.table_maps[select_query]
+cursor.execute(query_sql_str)
+print( cursor.fetchall() ) 
+
+
+#脚本可以放在任意地方，执行脚本在这个目录下就能执行/root/anaconda3/
+例如
+cd /root/anaconda3/
+python text.py 
+
+
+#!/usr/bin/python
+import psycopg2
+
+conn = psycopg2.connect(database="bscdb", user="postgres", password="1qazxsw2", host="10.226.98.58", port="55433")
+
+
+
+print("Opened database successfully")
+
+cur = conn.cursor()
+cur.execute('''CREATE TABLE COMPANY
+       (ID INT PRIMARY KEY     NOT NULL,
+       NAME           TEXT    NOT NULL,
+       AGE            INT     NOT NULL,
+       ADDRESS        CHAR(50),
+       SALARY         REAL);''')
+print ("Table created successfully")
+
+conn.commit()
+conn.close()

@@ -1,0 +1,50 @@
+nodes:
+  - name: bsc_pg_to_hdfs_KPI
+    type: flow
+    nodes:
+    -   name: pg_to_hdfs_kpi_otds
+        type: command
+        config:
+            command: sh /bscflow/hdfs/PG/pg_db_to_hdfs_leadtime.sh 'otds'
+    -   name: pg_to_hdfs_kpi_leadtime
+        type: command
+        dependsOn:
+            - pg_to_hdfs_kpi_otds
+        config:
+            command: sh /bscflow/hdfs/PG/pg_db_to_hdfs_leadtime.sh 'leadtime'
+  - name: hdfs_to_ods_KPI
+    type: flow
+    dependsOn:
+        - bsc_pg_to_hdfs_KPI
+    nodes:
+    -   name: otds_into_ods
+        type: command
+        config:
+            command: sh /bscflow/hdfs/PG/hdfs_to_ods_csgn_sway.sh 'kpiotds'
+    -   name: leadtime_into_ods
+        type: command
+        dependsOn:
+            - otds_into_ods
+        config:
+            command: sh /bscflow/hdfs/PG/hdfs_to_ods_csgn_sway.sh 'kpi'
+  - name: ods_to_dwt_KPI
+    type: flow
+    dependsOn:
+        - hdfs_to_ods_KPI
+    nodes:
+    -   name: dwt_kpi_by_bu_detail_otds
+        type: command
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_kpi_by_bu_detail_OTDS.sh
+    -   name: dwt_kpi_by_bu_detail_po_dn
+        type: command
+        dependsOn:
+            - dwt_kpi_by_bu_detail_otds
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_kpi_by_bu_detail_PO_DN.sh
+    -   name: dwt_kpi_by_bu_detail_kpi
+        type: command
+        dependsOn:
+            - dwt_kpi_by_bu_detail_po_dn
+        config:
+            command: sh /bscflow/dwt/dws_to_dwt_kpi_by_bu_detail_KPI.sh

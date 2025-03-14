@@ -1,0 +1,189 @@
+nodes:
+  - name: bsc_ops_db_to_hdfs_earlypart
+    type: flow
+    nodes:
+     -  name: import_export_sto
+        type: command
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'import_export_sto'
+     -  name: import_export_sto_dn
+        type: command
+        dependsOn:
+            - import_export_sto
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'import_export_sto_dn'
+     -  name: inbound_outbound_dn_mapping
+        type: command
+        dependsOn:
+            - import_export_sto_dn
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'in_out_map'
+     -  name: domestic_sto
+        type: command
+        dependsOn:
+            - inbound_outbound_dn_mapping
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'domestic_sto'
+     -  name: domestic_sto_dn
+        type: command
+        dependsOn:
+            - domestic_sto
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'domestic_sto_dn'
+     -  name: sales_order
+        type: command
+        dependsOn:
+            - domestic_sto_dn
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so'
+     -  name: so_createinfo
+        type: command
+        dependsOn:
+            - sales_order
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_createinfo'
+     -  name: so_text
+        type: command
+        dependsOn:
+            - so_createinfo
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_text'
+     -  name: so_partner
+        type: command
+        dependsOn:
+            - so_text
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_partner'
+     -  name: sales_order_dn
+        type: command
+        dependsOn:
+            - so_partner
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_dn'
+     -  name: putaway_info
+        type: command
+        dependsOn:
+            - sales_order_dn
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'putaway'
+     -  name: inventory_movement
+        type: command
+        dependsOn:
+            - putaway_info
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'movement'
+     -  name: rr_sales_froecast
+        type: command
+        dependsOn:
+            - inventory_movement
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'RRSalesForecast'
+  - name: hdfs_to_ods
+    type: flow
+    dependsOn:
+        - bsc_ops_db_to_hdfs_earlypart
+    nodes:
+    -   name: load_transation_into_ods
+        type: command
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_trans.sh
+  - name: ods_to_dwd_earlypart
+    type: flow
+    dependsOn:
+        - hdfs_to_ods
+    nodes:
+     -  name: putaway
+        type: command
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_putaway_info.sh
+     -  name: fact_import_export_sto
+        type: command
+        dependsOn:
+            - putaway        
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_import_export_sto.sh
+     -  name: fact_import_export_sto_dn
+        type: command
+        dependsOn:
+            - fact_import_export_sto
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_import_export_sto_dn.sh
+     -  name: ods_dwd_salesorder_createdinfo
+        type: command
+        dependsOn:
+            - fact_import_export_sto_dn
+        config:
+            command: sh /bscflow/dwd/ods_dwd_salesorder_createdinfo.sh
+     -  name: fact_so
+        type: command
+        dependsOn:
+            - ods_dwd_salesorder_createdinfo
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_so.sh
+     -  name: fact_inventory_movement
+        type: command
+        dependsOn:
+            - fact_so
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_inventory_movement.sh
+     -  name: fact_domestic_sto
+        type: command
+        dependsOn:
+            - fact_inventory_movement
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_domestic_sto_info.sh
+     -  name: fact_domestic_sto_dn
+        type: command
+        dependsOn:
+            - fact_domestic_sto
+            - fact_inventory_movement
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_domestic_sto_dn.sh
+     -  name: fact_cfda_upn
+        type: command
+        dependsOn:
+            - fact_domestic_sto_dn
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_dim_cfda_upn.sh
+     -  name: fact_cfda
+        type: command
+        dependsOn:
+            - fact_cfda_upn
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_dim_cfda.sh
+     -  name: fact_rr_sales_forecast
+        type: command
+        dependsOn:
+            - fact_cfda
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_rr_sales_forecast.sh
+  - name: domestic_to_hdfs
+    type: flow
+    dependsOn:
+        - ods_to_dwd_earlypart
+    nodes:
+    -   name: dwd_fact_domestic_sto_dn_info
+        type: command
+        config:
+            command: sh /bscflow/PG/Shell/onhand_delivery_to_hdfs.sh dwd_fact_domestic_sto_dn_info
+    -   name: dwd_fact_domestic_sto_dn_detail
+        type: command
+        dependsOn:
+            - dwd_fact_domestic_sto_dn_info
+        config:
+            command: sh /bscflow/PG/Shell/onhand_delivery_to_hdfs.sh dwd_fact_domestic_sto_dn_detail
+  - name: domestic_hdfs_to_pg
+    type: flow
+    dependsOn:
+        - domestic_to_hdfs
+    nodes:
+    -   name: dwd_fact_domestic_sto_dn_info_to_59_pg
+        type: command
+        config:
+            command: sh /bscflow/PG/Shell/onhand_delivery_hdfs_to_pg.sh dwd_fact_domestic_sto_dn_info
+    -   name: dwd_fact_domestic_sto_dn_detail_to_59_pg
+        type: command
+        dependsOn:
+            - dwd_fact_domestic_sto_dn_info_to_59_pg
+        config:
+            command: sh /bscflow/PG/Shell/onhand_delivery_hdfs_to_pg.sh dwd_fact_domestic_sto_dn_detail

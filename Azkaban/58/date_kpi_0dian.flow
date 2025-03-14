@@ -1,0 +1,137 @@
+nodes:
+  - name: dwd_to_dws_kpi
+    type: flow
+    nodes:
+     -  name: dws_kpi_stock_putaway_time
+        type: command
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_kpi_stock_putaway_time.sh
+     -  name: dws_kpi_monthly_isolate_stock
+        type: command
+        dependsOn:
+            - dws_kpi_stock_putaway_time
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_kpi_monthly_isolate_stock.sh
+     -  name: dws_kpi_sales_waybill_timi
+        type: command
+        dependsOn:
+            - dws_kpi_monthly_isolate_stock
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_kpi_sales_waybill_timi.sh
+     -  name: dws_kpi_zc_timi
+        type: command
+        dependsOn:
+            - dws_kpi_sales_waybill_timi
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_kpi_zc_timi.sh
+     -  name: dws_ie_kpi
+        type: command
+        dependsOn:
+            - dws_kpi_zc_timi
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_ie_kpi.sh
+     -  name: dws_kpi_cc_so_delivery
+        type: command
+        dependsOn:
+            - dws_ie_kpi
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_kpi_cc_so_delivery.sh
+  - name: dws_to_hdfs_kpi
+    type: flow
+    dependsOn:
+        - dwd_to_dws_kpi
+    nodes:
+     -  name: dws_kpi_stock_putaway_time_hdfs
+        type: command
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_hdfs.sh dws_kpi_stock_putaway_time
+     -  name: dws_kpi_monthly_isolate_stock_hdfs
+        type: command
+        dependsOn:
+            - dws_kpi_stock_putaway_time_hdfs
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_hdfs.sh dws_kpi_monthly_isolate_stock
+     -  name: dws_kpi_sales_waybill_timi_hdfs
+        type: command
+        dependsOn:
+            - dws_kpi_monthly_isolate_stock_hdfs
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_hdfs.sh dws_kpi_sales_waybill_timi
+     -  name: dws_kpi_zc_timi_hdfs
+        type: command
+        dependsOn:
+            - dws_kpi_sales_waybill_timi_hdfs
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_hdfs.sh dws_kpi_zc_timi
+     -  name: dws_ie_kpi_hdfs
+        type: command
+        dependsOn:
+            - dws_kpi_zc_timi_hdfs
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_hdfs.sh dws_ie_kpi
+     -  name: dws_kpi_cc_so_delivery_hdfs
+        type: command
+        dependsOn:
+            - dws_ie_kpi_hdfs
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_hdfs.sh dws_kpi_cc_so_delivery
+  - name: hdfs_to_pg_kpi
+    type: flow
+    dependsOn:
+        - dws_to_hdfs_kpi
+    nodes:
+     -  name: dws_kpi_stock_putaway_time_pg
+        type: command
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_pg_db.sh dws_kpi_stock_putaway_time
+     -  name: dws_kpi_monthly_isolate_stock_pg
+        type: command
+        dependsOn:
+            - dws_kpi_stock_putaway_time_pg
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_pg_db.sh dws_kpi_monthly_isolate_stock
+     -  name: dws_kpi_sales_waybill_timi_pg
+        type: command
+        dependsOn:
+            - dws_kpi_monthly_isolate_stock_pg
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_pg_db.sh dws_kpi_sales_waybill_timi
+     -  name: dws_kpi_zc_timi_pg
+        type: command
+        dependsOn:
+            - dws_kpi_sales_waybill_timi_pg
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_pg_db.sh dws_kpi_zc_timi
+     -  name: dws_ie_kpi_pg
+        type: command
+        dependsOn:
+            - dws_kpi_zc_timi_pg
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_pg_db.sh dws_ie_kpi
+     -  name: dws_kpi_cc_so_delivery_pg
+        type: command
+        dependsOn:
+            - dws_ie_kpi_pg
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_pg_db.sh dws_kpi_cc_so_delivery
+  - name: dws_pdt_to_pg_kpi
+    type: flow
+    dependsOn:
+        - hdfs_to_pg_kpi
+    nodes:
+     -  name: dwd_to_dws_pdt
+        type: command
+        config:
+            command: sh /bscflow/dws/dwd_to_dws_kpi_dwd_fact_import_export_dn_info_pdt.sh
+     -  name: pdt_to_hdfs
+        type: command
+        dependsOn:
+            - dwd_to_dws_pdt
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_hdfs.sh dws_kpi_dwd_fact_import_export_dn_info_pdt
+     -  name: pdt_hdfs_to_pg
+        type: command
+        dependsOn:
+            - pdt_to_hdfs
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_pg_db.sh dws_kpi_dwd_fact_import_export_dn_info_pdt

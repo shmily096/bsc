@@ -1,0 +1,26 @@
+nodes:
+  - name: ods_kpi_dpchinadatabase_data
+    type: flow
+    nodes:
+     -  name: ods_kpi_dpchinadatabase_data
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_ods_dwd_dp_data_kpi.sh kpi_dpchinadatabase_data
+  - name: ods_kpi_dpchinadatabase_kpi
+    type: flow
+    dependsOn:
+        - ods_kpi_dpchinadatabase_data
+    nodes:
+     -  name: ods_kpi_dpchinadatabase_kpi
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_ods_dwd_dp_data_kpi.sh kpi_dpchinadatabase_kpi
+  - name: ods_to_dwd
+    type: flow
+    dependsOn:
+        - ods_kpi_dpchinadatabase_kpi
+    nodes:
+     -  name: dwd_kpi_dpchinadatabase_data_and_kpi
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_ods_dwd_dp_data_kpi.sh dp_dwd

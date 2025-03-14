@@ -1,0 +1,5 @@
+nodes:
+ -  name: load_local_data_to_ods_dwd
+    type: command
+    config:
+        command: sh /bscflow/ods/load_local_data_to_ods_dwd.sh ${data_type} ${date_file}

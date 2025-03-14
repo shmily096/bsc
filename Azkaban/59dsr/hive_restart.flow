@@ -1,0 +1,9 @@
+nodes:
+  - name: restart
+    type: flow
+    nodes:
+    -   name: restart
+        type: command
+        config:
+            command: sh /root/hive_restart.sh
+ 

@@ -1,0 +1,5 @@
+nodes:
+ -  name: hello
+    type: command
+    config:
+        command: echo "Hello World"

@@ -1,0 +1,107 @@
+nodes:
+  - name: wo_qrcode
+    type: flow
+    nodes:
+     -  name: pg_to_dwd
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh wo_qrcode
+  - name: dsr_le_srr
+    type: flow
+    dependsOn:
+        - wo_qrcode
+    nodes:
+    -   name: dwd_dim_le_srr
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh dsr_le_srr
+  - name: upn_change_bu
+    type: flow
+    dependsOn:
+        - dsr_le_srr
+    nodes:
+    -   name: dwd_upn_change_bu
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh upn_change_bu
+  - name: qibo_fenbo
+    type: flow
+    dependsOn:
+        - upn_change_bu
+    nodes:
+    -   name: dwd_pacemaker_list
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh qibo_fenbo
+  - name: inbound_declaration
+    type: flow
+    dependsOn:
+        - qibo_fenbo
+    nodes:
+    -   name: ods_inbound_declaration
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh inbound_declaration
+  - name: outbound_customclearance
+    type: flow
+    dependsOn:
+        - inbound_declaration
+    nodes:
+    -   name: ods_outbound_customclearance
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh outbound_customclearance
+  - name: outbound_customclarance_mal
+    type: flow
+    dependsOn:
+        - outbound_customclearance
+    nodes:
+    -   name: ods_outbound_customclarance_mal
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh outbound_customclarance_mal
+  - name: outbound_pacemaker
+    type: flow
+    dependsOn:
+        - outbound_customclarance_mal
+    nodes:
+    -   name: ods_outbound_pacemaker
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh outbound_pacemaker
+  - name: dwd_dim_all_kpi
+    type: flow
+    dependsOn:
+        - outbound_pacemaker
+    nodes:
+    -   name: dwd_dim_all_kpi
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh dim_all_kpi
+  - name: dwd_dim_ie_supplier
+    type: flow
+    dependsOn:
+        - dwd_dim_all_kpi
+    nodes:
+    -   name: dwd_dim_ie_supplier
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh dwd_dim_ie_supplier
+  - name: dwd_dim_customer_rebaterate
+    type: flow
+    dependsOn:
+        - dwd_dim_ie_supplier
+    nodes:
+    -   name: dwd_dim_customer_rebaterate
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh dsr_customer_rebate
+  - name: sto_migo2pgi_dws_pg
+    type: flow
+    dependsOn:
+        - dwd_dim_customer_rebaterate
+    nodes:
+    -   name: sto_migo2pgi_dws_pg
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh sto_migo2pgi

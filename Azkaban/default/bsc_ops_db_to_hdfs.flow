@@ -1,0 +1,97 @@
+nodes:
+ -  name: master_data
+    type: command
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'master_data'
+ -  name: import_export_sto
+    type: command
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'import_export_sto'
+ -  name: import_export_sto_dn
+    type: command
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'import_export_sto_dn'
+ -  name: inbound_outbound_dn_mapping
+    type: command
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'in_out_map'
+ -  name: commercial_invoice_dn_mapping
+    type: command
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'invoice_dn_map'
+ -  name: work_order
+    type: command
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'wo'
+ -  name: domestic_sto
+    type: command
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'domestic_sto'
+ -  name: domestic_sto_dn
+    type: command
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'domestic_sto_dn'
+ -  name: sales_order
+    type: command
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so'
+ -  name: sales_order_dn
+    type: command
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_dn'
+ -  name: so_invoice
+    type: command
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_invoice'
+ -  name: putaway_info
+    type: command
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'putaway'
+ -  name: inventory_movement
+    type: command
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'movement'
+ -  name: inventory_onhand
+    type: command
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'onhand'
+ -  name: purchase_order
+    type: command
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'po'
+ -  name: shipment_inbound_tracking
+    type: command
+    dependsOn: 
+        - master_data
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'inbound_tracking'
+ -  name: so_receiving_confirmation_info
+    type: command
+    dependsOn: 
+        - master_data
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'socd'
+ -  name: dealer_purchase_quotation
+    type: command
+    dependsOn: 
+        - master_data
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'dpq'
+ -  name: so_createinfo
+    type: command
+    dependsOn:
+        - sales_order
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_createinfo'
+ -  name: so_text
+    type: command
+    dependsOn:
+        - sales_order
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_text'
+ -  name: so_partner
+    type: command
+    dependsOn:
+        - sales_order
+    config:
+        command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_partner'

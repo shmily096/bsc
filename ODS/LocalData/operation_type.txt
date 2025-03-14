@@ -1,0 +1,342 @@
+CHANNEL-LP KA B02	寄售退回	KA	B02	B02 CONSIGNMENT: Pick-Up	CHANNEL-LP	寄售	Reverse	KA B02	寄售退货
+CHANNEL-LS KA B02	寄售退回	KA	B02	B02 CONSIGNMENT: Pick-Up	CHANNEL-LS	寄售	Reverse	KA B02	寄售退货
+CHANNEL-T1 KA B02	寄售退回	KA	B02	B02 CONSIGNMENT: Pick-Up	CHANNEL-T1	寄售	Reverse	KA B02	寄售退货
+HOSP-DS-PB KA B02	寄售退回	KA	B02	B02 CONSIGNMENT: Pick-Up	HOSP-DS-PB	寄售	Reverse	KA B02	寄售退货
+HOSP-DS-PV KA B02	寄售退回	KA	B02	B02 CONSIGNMENT: Pick-Up	HOSP-DS-PV	寄售	Reverse	KA B02	寄售退货
+CHANNEL-LP KA G02	寄售退回-到货破损	KA	G02	G02 Damaged In Transit	CHANNEL-LP	寄售	Reverse	KA G02	寄售退货
+CHANNEL-LS KA G02	寄售退回-到货破损	KA	G02	G02 Damaged In Transit	CHANNEL-LS	寄售	Reverse	KA G02	寄售退货
+CHANNEL-T1 KA G02	寄售退回-到货破损	KA	G02	G02 Damaged In Transit	CHANNEL-T1	寄售	Reverse	KA G02	寄售退货
+HOSP-DS-PB KA G02	寄售退回-到货破损	KA	G02	G02 Damaged In Transit	HOSP-DS-PB	寄售	Reverse	KA G02	寄售退货
+HOSP-DS-PV KA G02	寄售退回-到货破损	KA	G02	G02 Damaged In Transit	HOSP-DS-PV	寄售	Reverse	KA G02	寄售退货
+CHANNEL-LP KA G24	寄售退回-召回	KA	G24	G24 Recall (As needed by Product)	CHANNEL-LP	寄售	Reverse	KA G24	召回
+CHANNEL-LS KA G24	寄售退回-召回	KA	G24	G24 Recall (As needed by Product)	CHANNEL-LS	寄售	Reverse	KA G24	召回
+CHANNEL-T1 KA G24	寄售退回-召回	KA	G24	G24 Recall (As needed by Product)	CHANNEL-T1	寄售	Reverse	KA G24	召回
+HOSP-DS-PB KA G24	寄售退回-召回	KA	G24	G24 Recall (As needed by Product)	HOSP-DS-PB	寄售	Reverse	KA G24	召回
+HOSP-DS-PV KA G24	寄售退回-召回	KA	G24	G24 Recall (As needed by Product)	HOSP-DS-PV	寄售	Reverse	KA G24	召回
+CHANNEL-LP KB X03	寄售发货	KB	X03	X03 CHN: CSGN Fill-up	CHANNEL-LP	寄售	Outbound	KB X03	寄售出库
+CHANNEL-LS KB X03	寄售发货	KB	X03	X03 CHN: CSGN Fill-up	CHANNEL-LS	寄售	Outbound	KB X03	寄售出库
+CHANNEL-T1 KB X03	寄售发货	KB	X03	X03 CHN: CSGN Fill-up	CHANNEL-T1	寄售	Outbound	KB X03	寄售出库
+HOSP-DS-PB KB X03	寄售发货	KB	X03	X03 CHN: CSGN Fill-up	HOSP-DS-PB	寄售	Outbound	KB X03	寄售出库
+HOSP-DS-PV KB X03	寄售发货	KB	X03	X03 CHN: CSGN Fill-up	HOSP-DS-PV	寄售	Outbound	KB X03	寄售出库
+CHANNEL-LP KE B03	寄售结算	KE	B03	B03 CONSIGNMENT: Sale/Issue	CHANNEL-LP	寄售	Billing Only	KE B03	NA
+CHANNEL-LS KE B03	寄售结算	KE	B03	B03 CONSIGNMENT: Sale/Issue	CHANNEL-LS	寄售	Billing Only	KE B03	NA
+CHANNEL-T1 KE B03	寄售结算	KE	B03	B03 CONSIGNMENT: Sale/Issue	CHANNEL-T1	寄售	Billing Only	KE B03	NA
+HOSP-DS-PB KE B03	寄售结算	KE	B03	B03 CONSIGNMENT: Sale/Issue	HOSP-DS-PB	寄售	Billing Only	KE B03	NA
+HOSP-DS-PV KE B03	寄售结算	KE	B03	B03 CONSIGNMENT: Sale/Issue	HOSP-DS-PV	寄售	Billing Only	KE B03	NA
+CHANNEL-LP ZTKA B17	寄售转移	ZTKA	B17	B17 CONSIGNMENT:Cust to Cust Consignment	CHANNEL-LP	寄售	Transfer	ZTKA B17	NA
+CHANNEL-LS ZTKA B17	寄售转移	ZTKA	B17	B17 CONSIGNMENT:Cust to Cust Consignment	CHANNEL-LS	寄售	Transfer	ZTKA B17	NA
+CHANNEL-T1 ZTKA B17	寄售转移	ZTKA	B17	B17 CONSIGNMENT:Cust to Cust Consignment	CHANNEL-T1	寄售	Transfer	ZTKA B17	NA
+HOSP-DS-PB ZTKA B17	寄售转移	ZTKA	B17	B17 CONSIGNMENT:Cust to Cust Consignment	HOSP-DS-PB	寄售	Transfer	ZTKA B17	NA
+HOSP-DS-PV ZTKA B17	寄售转移	ZTKA	B17	B17 CONSIGNMENT:Cust to Cust Consignment	HOSP-DS-PV	寄售	Transfer	ZTKA B17	NA
+CHANNEL-LP ZTKB B17	寄售转移	ZTKB	B17	B17 CONSIGNMENT:Cust to Cust Consignment	CHANNEL-LP	寄售	Transfer	ZTKB B17	NA
+CHANNEL-LS ZTKB B17	寄售转移	ZTKB	B17	B17 CONSIGNMENT:Cust to Cust Consignment	CHANNEL-LS	寄售	Transfer	ZTKB B17	NA
+CHANNEL-T1 ZTKB B17	寄售转移	ZTKB	B17	B17 CONSIGNMENT:Cust to Cust Consignment	CHANNEL-T1	寄售	Transfer	ZTKB B17	NA
+HOSP-DS-PB ZTKB B17	寄售转移	ZTKB	B17	B17 CONSIGNMENT:Cust to Cust Consignment	HOSP-DS-PB	寄售	Transfer	ZTKB B17	NA
+HOSP-DS-PV ZTKB B17	寄售转移	ZTKB	B17	B17 CONSIGNMENT:Cust to Cust Consignment	HOSP-DS-PV	寄售	Transfer	ZTKB B17	NA
+HOSP-CE-PB DR ZSR	维修配件-收费	DR	ZSR	ZSR Service	HOSP-CE-PB	设备配件维修	CR/DR	DR ZSR	NA
+HOSP-CE-PV DR ZSR	维修配件-收费	DR	ZSR	ZSR Service	HOSP-CE-PV	设备配件维修	CR/DR	DR ZSR	NA
+CHANNEL-LP DR ZSR	维修配件-收费	DR	ZSR	ZSR Service	CHANNEL-LP	设备配件维修	CR/DR	DR ZSR	NA
+CHANNEL-LS DR ZSR	维修配件-收费	DR	ZSR	ZSR Service	CHANNEL-LS	设备配件维修	CR/DR	DR ZSR	NA
+CHANNEL-T1 DR ZSR	维修配件-收费	DR	ZSR	ZSR Service	CHANNEL-T1	设备配件维修	CR/DR	DR ZSR	NA
+INTER-BR-SRAI KA G10	维修配件退回-SARI	KA	G10	G10 Product Failure	INTER-BR-SRAI	设备配件维修	Reverse	KA G10	维修配件
+INTER-BR-SRAI KA G22	维修配件退回-SARI	KA	G22	G22 No Longer Needed	INTER-BR-SRAI	设备配件维修	Reverse	KA G22	维修配件
+CHANNEL-LP KB F02	维修配件-发货	KB	F02	F02 Return Replacement	CHANNEL-LP	设备配件维修	Outbound	KB F02	备件出库
+CHANNEL-LS KB F02	维修配件-发货	KB	F02	F02 Return Replacement	CHANNEL-LS	设备配件维修	Outbound	KB F02	备件出库
+CHANNEL-T1 KB F02	维修配件-发货	KB	F02	F02 Return Replacement	CHANNEL-T1	设备配件维修	Outbound	KB F02	备件出库
+HOSP-CE-PB KB F02	维修配件-发货	KB	F02	F02 Return Replacement	HOSP-CE-PB	设备配件维修	Outbound	KB F02	备件出库
+HOSP-CE-PV KB F02	维修配件-发货	KB	F02	F02 Return Replacement	HOSP-CE-PV	设备配件维修	Outbound	KB F02	备件出库
+INTER-BR-SRAI KB F02	维修配件-发货-SRAI	KB	F02	F02 Return Replacement	INTER-BR-SRAI	设备配件维修	Outbound	KB F02	备件出库
+INTER-SA-ASS KB F02	维修配件-发货	KB	F02	F02 Return Replacement	INTER-SA-ASS	设备配件维修	Outbound	KB F02	备件出库
+INTER-BR-SRAI KB F05	维修配件发货-SRAI	KB	F05	F05 Warranty Replacement	INTER-BR-SRAI	设备配件维修	Outbound	KB F05	备件出库
+INTER-BR-SRAI KB ZSA	维修配件发货-SRAI	KB	ZSA	ZSA Service Agreement	INTER-BR-SRAI	设备配件维修	Outbound	KB ZSA	备件出库
+INTER-BR-SRAI KB ZSC	维修配件发货-SRAI	KB	ZSC	ZSC Service Sls Courtesy	INTER-BR-SRAI	设备配件维修	Outbound	KB ZSC	备件出库
+INTER-BR-SRAI KB ZSD	维修配件发货-SRAI	KB	ZSD	ZSD Service Demo	INTER-BR-SRAI	设备配件维修	Outbound	KB ZSD	备件出库
+INTER-BR-SRAI KB ZSI	维修配件发货-SRAI	KB	ZSI	ZSI Service Installation	INTER-BR-SRAI	设备配件维修	Outbound	KB ZSI	备件出库
+INTER-BR-SRAI KB ZSL	维修配件发货-SRAI	KB	ZSL	ZSL Service Loaner/Train	INTER-BR-SRAI	设备配件维修	Outbound	KB ZSL	备件出库
+INTER-BR-SRAI KB ZSP	维修配件发货-SRAI	KB	ZSP	ZSP Service Sls Program	INTER-BR-SRAI	设备配件维修	Outbound	KB ZSP	备件出库
+INTER-BR-SRAI KB ZSR	维修配件发货-SRAI	KB	ZSR	ZSR Service	INTER-BR-SRAI	设备配件维修	Outbound	KB ZSR	备件出库
+INTER-BR-SRAI KB ZSW	维修配件发货-SRAI	KB	ZSW	ZSW Service Warranty	INTER-BR-SRAI	设备配件维修	Outbound	KB ZSW	备件出库
+INTER-BR-SRAI KB ZSX	维修配件发货-SRAI	KB	ZSX	ZSX Service Courtesy	INTER-BR-SRAI	设备配件维修	Outbound	KB ZSX	备件出库
+INTER-SA-RA FD X05	样品-注册	FD	X05	X05 CHN: Testing Sample	INTER-SA-RA	样品订单	Outbound	FD X05	RA注册样品出库
+CHANNEL-LP ZNC F02	维修配件-发货	ZNC	F02	F02 Return Replacement	CHANNEL-LP	设备配件维修	Outbound	ZNC F02	备件出库
+CHANNEL-LS ZNC F02	维修配件-发货	ZNC	F02	F02 Return Replacement	CHANNEL-LS	设备配件维修	Outbound	ZNC F02	备件出库
+CHANNEL-T1 ZNC F02	维修配件-发货	ZNC	F02	F02 Return Replacement	CHANNEL-T1	设备配件维修	Outbound	ZNC F02	备件出库
+HOSP-CE-PB ZNC F02	维修配件-发货	ZNC	F02	F02 Return Replacement	HOSP-CE-PB	设备配件维修	Outbound	ZNC F02	备件出库
+HOSP-CE-PV ZNC F02	维修配件-发货	ZNC	F02	F02 Return Replacement	HOSP-CE-PV	设备配件维修	Outbound	ZNC F02	备件出库
+INTER-BR-SRAI ZNC F02	维修配件-发货	ZNC	F02	F02 Return Replacement	INTER-BR-SRAI	设备配件维修	Outbound	ZNC F02	备件出库
+INTER-SA-ASS ZNC F02	维修配件-发货	ZNC	F02	F02 Return Replacement	INTER-SA-ASS	设备配件维修	Outbound	ZNC F02	备件出库
+CHANNEL-LP ZNC F05	维修配件-发货	ZNC	F05	F05 Warranty Replacement	CHANNEL-LP	设备配件维修	Outbound	ZNC F05	备件出库
+CHANNEL-LS ZNC F05	维修配件-发货	ZNC	F05	F05 Warranty Replacement	CHANNEL-LS	设备配件维修	Outbound	ZNC F05	备件出库
+CHANNEL-T1 ZNC F05	维修配件-发货	ZNC	F05	F05 Warranty Replacement	CHANNEL-T1	设备配件维修	Outbound	ZNC F05	备件出库
+HOSP-CE-PB ZNC F05	维修配件-发货	ZNC	F05	F05 Warranty Replacement	HOSP-CE-PB	设备配件维修	Outbound	ZNC F05	备件出库
+HOSP-CE-PV ZNC F05	维修配件-发货	ZNC	F05	F05 Warranty Replacement	HOSP-CE-PV	设备配件维修	Outbound	ZNC F05	备件出库
+INTER-BR-SRAI ZNC F05	维修配件-发货	ZNC	F05	F05 Warranty Replacement	INTER-BR-SRAI	设备配件维修	Outbound	ZNC F05	备件出库
+INTER-SA-ASS ZNC F05	维修配件-发货	ZNC	F05	F05 Warranty Replacement	INTER-SA-ASS	设备配件维修	Outbound	ZNC F05	备件出库
+CHANNEL-LP ZNC ZSA	维修配件-发货	ZNC	ZSA	ZSA Service Agreement	CHANNEL-LP	设备配件维修	Outbound	ZNC ZSA	备件出库
+CHANNEL-LS ZNC ZSA	维修配件-发货	ZNC	ZSA	ZSA Service Agreement	CHANNEL-LS	设备配件维修	Outbound	ZNC ZSA	备件出库
+CHANNEL-T1 ZNC ZSA	维修配件-发货	ZNC	ZSA	ZSA Service Agreement	CHANNEL-T1	设备配件维修	Outbound	ZNC ZSA	备件出库
+HOSP-CE-PB ZNC ZSA	维修配件-发货	ZNC	ZSA	ZSA Service Agreement	HOSP-CE-PB	设备配件维修	Outbound	ZNC ZSA	备件出库
+HOSP-CE-PV ZNC ZSA	维修配件-发货	ZNC	ZSA	ZSA Service Agreement	HOSP-CE-PV	设备配件维修	Outbound	ZNC ZSA	备件出库
+INTER-BR-SRAI ZNC ZSA	维修配件-发货	ZNC	ZSA	ZSA Service Agreement	INTER-BR-SRAI	设备配件维修	Outbound	ZNC ZSA	备件出库
+CHANNEL-LP ZNC ZSB	维修配件-发货	ZNC	ZSB	ZSB w/o SAP Service Contract	CHANNEL-LP	设备配件维修	Outbound	ZNC ZSB	备件出库
+CHANNEL-LS ZNC ZSB	维修配件-发货	ZNC	ZSB	ZSB w/o SAP Service Contract	CHANNEL-LS	设备配件维修	Outbound	ZNC ZSB	备件出库
+CHANNEL-T1 ZNC ZSB	维修配件-发货	ZNC	ZSB	ZSB w/o SAP Service Contract	CHANNEL-T1	设备配件维修	Outbound	ZNC ZSB	备件出库
+HOSP-CE-PB ZNC ZSB	维修配件-发货	ZNC	ZSB	ZSB w/o SAP Service Contract	HOSP-CE-PB	设备配件维修	Outbound	ZNC ZSB	备件出库
+HOSP-CE-PV ZNC ZSB	维修配件-发货	ZNC	ZSB	ZSB w/o SAP Service Contract	HOSP-CE-PV	设备配件维修	Outbound	ZNC ZSB	备件出库
+INTER-BR-SRAI ZNC ZSB	维修配件-发货	ZNC	ZSB	ZSB w/o SAP Service Contract	INTER-BR-SRAI	设备配件维修	Outbound	ZNC ZSB	备件出库
+CHANNEL-LP ZNC ZSC	维修配件-发货	ZNC	ZSC	ZSC Service Sls Courtesy	CHANNEL-LP	设备配件维修	Outbound	ZNC ZSC	备件出库
+CHANNEL-LS ZNC ZSC	维修配件-发货	ZNC	ZSC	ZSC Service Sls Courtesy	CHANNEL-LS	设备配件维修	Outbound	ZNC ZSC	备件出库
+CHANNEL-T1 ZNC ZSC	维修配件-发货	ZNC	ZSC	ZSC Service Sls Courtesy	CHANNEL-T1	设备配件维修	Outbound	ZNC ZSC	备件出库
+HOSP-CE-PB ZNC ZSC	维修配件-发货	ZNC	ZSC	ZSC Service Sls Courtesy	HOSP-CE-PB	设备配件维修	Outbound	ZNC ZSC	备件出库
+HOSP-CE-PV ZNC ZSC	维修配件-发货	ZNC	ZSC	ZSC Service Sls Courtesy	HOSP-CE-PV	设备配件维修	Outbound	ZNC ZSC	备件出库
+INTER-BR-SRAI ZNC ZSC	维修配件-发货	ZNC	ZSC	ZSC Service Sls Courtesy	INTER-BR-SRAI	设备配件维修	Outbound	ZNC ZSC	备件出库
+INTER-SA-ASS ZNC ZSC	维修配件-发货	ZNC	ZSC	ZSC Service Sls Courtesy	INTER-SA-ASS	设备配件维修	Outbound	ZNC ZSC	备件出库
+CHANNEL-LP ZNC ZSD	维修配件-发货	ZNC	ZSD	ZSD Service Demo	CHANNEL-LP	设备配件维修	Outbound	ZNC ZSD	备件出库
+CHANNEL-LS ZNC ZSD	维修配件-发货	ZNC	ZSD	ZSD Service Demo	CHANNEL-LS	设备配件维修	Outbound	ZNC ZSD	备件出库
+CHANNEL-T1 ZNC ZSD	维修配件-发货	ZNC	ZSD	ZSD Service Demo	CHANNEL-T1	设备配件维修	Outbound	ZNC ZSD	备件出库
+HOSP-CE-PB ZNC ZSD	维修配件-发货	ZNC	ZSD	ZSD Service Demo	HOSP-CE-PB	设备配件维修	Outbound	ZNC ZSD	备件出库
+HOSP-CE-PV ZNC ZSD	维修配件-发货	ZNC	ZSD	ZSD Service Demo	HOSP-CE-PV	设备配件维修	Outbound	ZNC ZSD	备件出库
+INTER-BR-SRAI ZNC ZSD	维修配件-发货	ZNC	ZSD	ZSD Service Demo	INTER-BR-SRAI	设备配件维修	Outbound	ZNC ZSD	备件出库
+CHANNEL-LP ZNC ZSI	维修配件-发货	ZNC	ZSI	ZSI Service Installation	CHANNEL-LP	设备配件维修	Outbound	ZNC ZSI	备件出库
+CHANNEL-LS ZNC ZSI	维修配件-发货	ZNC	ZSI	ZSI Service Installation	CHANNEL-LS	设备配件维修	Outbound	ZNC ZSI	备件出库
+CHANNEL-T1 ZNC ZSI	维修配件-发货	ZNC	ZSI	ZSI Service Installation	CHANNEL-T1	设备配件维修	Outbound	ZNC ZSI	备件出库
+HOSP-CE-PB ZNC ZSI	维修配件-发货	ZNC	ZSI	ZSI Service Installation	HOSP-CE-PB	设备配件维修	Outbound	ZNC ZSI	备件出库
+HOSP-CE-PV ZNC ZSI	维修配件-发货	ZNC	ZSI	ZSI Service Installation	HOSP-CE-PV	设备配件维修	Outbound	ZNC ZSI	备件出库
+INTER-BR-SRAI ZNC ZSI	维修配件-发货	ZNC	ZSI	ZSI Service Installation	INTER-BR-SRAI	设备配件维修	Outbound	ZNC ZSI	备件出库
+CHANNEL-LP ZNC ZSL	维修配件-发货	ZNC	ZSL	ZSL Service Loaner/Train	CHANNEL-LP	设备配件维修	Outbound	ZNC ZSL	备件出库
+CHANNEL-LS ZNC ZSL	维修配件-发货	ZNC	ZSL	ZSL Service Loaner/Train	CHANNEL-LS	设备配件维修	Outbound	ZNC ZSL	备件出库
+CHANNEL-T1 ZNC ZSL	维修配件-发货	ZNC	ZSL	ZSL Service Loaner/Train	CHANNEL-T1	设备配件维修	Outbound	ZNC ZSL	备件出库
+HOSP-CE-PB ZNC ZSL	维修配件-发货	ZNC	ZSL	ZSL Service Loaner/Train	HOSP-CE-PB	设备配件维修	Outbound	ZNC ZSL	备件出库
+HOSP-CE-PV ZNC ZSL	维修配件-发货	ZNC	ZSL	ZSL Service Loaner/Train	HOSP-CE-PV	设备配件维修	Outbound	ZNC ZSL	备件出库
+INTER-BR-SRAI ZNC ZSL	维修配件-发货	ZNC	ZSL	ZSL Service Loaner/Train	INTER-BR-SRAI	设备配件维修	Outbound	ZNC ZSL	备件出库
+CHANNEL-LP ZNC ZSP	维修配件-发货	ZNC	ZSP	ZSP Service Sls Program	CHANNEL-LP	设备配件维修	Outbound	ZNC ZSP	备件出库
+CHANNEL-LS ZNC ZSP	维修配件-发货	ZNC	ZSP	ZSP Service Sls Program	CHANNEL-LS	设备配件维修	Outbound	ZNC ZSP	备件出库
+CHANNEL-T1 ZNC ZSP	维修配件-发货	ZNC	ZSP	ZSP Service Sls Program	CHANNEL-T1	设备配件维修	Outbound	ZNC ZSP	备件出库
+HOSP-CE-PB ZNC ZSP	维修配件-发货	ZNC	ZSP	ZSP Service Sls Program	HOSP-CE-PB	设备配件维修	Outbound	ZNC ZSP	备件出库
+HOSP-CE-PV ZNC ZSP	维修配件-发货	ZNC	ZSP	ZSP Service Sls Program	HOSP-CE-PV	设备配件维修	Outbound	ZNC ZSP	备件出库
+INTER-BR-SRAI ZNC ZSP	维修配件-发货	ZNC	ZSP	ZSP Service Sls Program	INTER-BR-SRAI	设备配件维修	Outbound	ZNC ZSP	备件出库
+INTER-SA-ASS ZNC ZSP	维修配件-发货	ZNC	ZSP	ZSP Service Sls Program	INTER-SA-ASS	设备配件维修	Outbound	ZNC ZSP	备件出库
+CHANNEL-LP ZNC ZSR	维修配件-发货	ZNC	ZSR	ZSR Service	CHANNEL-LP	设备配件维修	Outbound	ZNC ZSR	备件出库
+CHANNEL-LS ZNC ZSR	维修配件-发货	ZNC	ZSR	ZSR Service	CHANNEL-LS	设备配件维修	Outbound	ZNC ZSR	备件出库
+CHANNEL-T1 ZNC ZSR	维修配件-发货	ZNC	ZSR	ZSR Service	CHANNEL-T1	设备配件维修	Outbound	ZNC ZSR	备件出库
+HOSP-CE-PB ZNC ZSR	维修配件-发货	ZNC	ZSR	ZSR Service	HOSP-CE-PB	设备配件维修	Outbound	ZNC ZSR	备件出库
+HOSP-CE-PV ZNC ZSR	维修配件-发货	ZNC	ZSR	ZSR Service	HOSP-CE-PV	设备配件维修	Outbound	ZNC ZSR	备件出库
+INTER-BR-SRAI ZNC ZSR	维修配件-发货	ZNC	ZSR	ZSR Service	INTER-BR-SRAI	设备配件维修	Outbound	ZNC ZSR	备件出库
+INTER-SA-ASS ZNC ZSR	维修配件-发货	ZNC	ZSR	ZSR Service	INTER-SA-ASS	设备配件维修	Outbound	ZNC ZSR	备件出库
+CHANNEL-LP ZNC ZSW	维修配件-发货	ZNC	ZSW	ZSW Service Warranty	CHANNEL-LP	设备配件维修	Outbound	ZNC ZSW	备件出库
+CHANNEL-LS ZNC ZSW	维修配件-发货	ZNC	ZSW	ZSW Service Warranty	CHANNEL-LS	设备配件维修	Outbound	ZNC ZSW	备件出库
+CHANNEL-T1 ZNC ZSW	维修配件-发货	ZNC	ZSW	ZSW Service Warranty	CHANNEL-T1	设备配件维修	Outbound	ZNC ZSW	备件出库
+HOSP-CE-PB ZNC ZSW	维修配件-发货	ZNC	ZSW	ZSW Service Warranty	HOSP-CE-PB	设备配件维修	Outbound	ZNC ZSW	备件出库
+HOSP-CE-PV ZNC ZSW	维修配件-发货	ZNC	ZSW	ZSW Service Warranty	HOSP-CE-PV	设备配件维修	Outbound	ZNC ZSW	备件出库
+INTER-BR-SRAI ZNC ZSW	维修配件-发货	ZNC	ZSW	ZSW Service Warranty	INTER-BR-SRAI	设备配件维修	Outbound	ZNC ZSW	备件出库
+INTER-SA-ASS ZNC ZSW	维修配件-发货	ZNC	ZSW	ZSW Service Warranty	INTER-SA-ASS	设备配件维修	Outbound	ZNC ZSW	备件出库
+CHANNEL-LP ZNC ZSX	维修配件-发货	ZNC	ZSX	ZSX Service Courtesy	CHANNEL-LP	设备配件维修	Outbound	ZNC ZSX	备件出库
+CHANNEL-LS ZNC ZSX	维修配件-发货	ZNC	ZSX	ZSX Service Courtesy	CHANNEL-LS	设备配件维修	Outbound	ZNC ZSX	备件出库
+CHANNEL-T1 ZNC ZSX	维修配件-发货	ZNC	ZSX	ZSX Service Courtesy	CHANNEL-T1	设备配件维修	Outbound	ZNC ZSX	备件出库
+HOSP-CE-PB ZNC ZSX	维修配件-发货	ZNC	ZSX	ZSX Service Courtesy	HOSP-CE-PB	设备配件维修	Outbound	ZNC ZSX	备件出库
+HOSP-CE-PV ZNC ZSX	维修配件-发货	ZNC	ZSX	ZSX Service Courtesy	HOSP-CE-PV	设备配件维修	Outbound	ZNC ZSX	备件出库
+CHANNEL-LP ZRB G10	维修配件-退回	ZRB	G10	G10 Product Failure	CHANNEL-LP	设备配件维修	Reverse	ZRB G10	维修配件
+CHANNEL-LS ZRB G10	维修配件-退回	ZRB	G10	G10 Product Failure	CHANNEL-LS	设备配件维修	Reverse	ZRB G10	维修配件
+CHANNEL-T1 ZRB G10	维修配件-退回	ZRB	G10	G10 Product Failure	CHANNEL-T1	设备配件维修	Reverse	ZRB G10	维修配件
+HOSP-CE-PB ZRB G10	维修配件-退回	ZRB	G10	G10 Product Failure	HOSP-CE-PB	设备配件维修	Reverse	ZRB G10	维修配件
+HOSP-CE-PV ZRB G10	维修配件-退回	ZRB	G10	G10 Product Failure	HOSP-CE-PV	设备配件维修	Reverse	ZRB G10	维修配件
+INTER-BR-SRAI ZRB G10	维修配件-退回	ZRB	G10	G10 Product Failure	INTER-BR-SRAI	设备配件维修	Reverse	ZRB G10	维修配件
+INTER-SA-ASS ZRB G10	维修配件-退回	ZRB	G10	G10 Product Failure	INTER-SA-ASS	设备配件维修	Reverse	ZRB G10	维修配件
+CHANNEL-LP ZRB G22	维修配件-退回	ZRB	G22	G22 No Longer Needed	CHANNEL-LP	设备配件维修	Reverse	ZRB G22	维修配件
+CHANNEL-LS ZRB G22	维修配件-退回	ZRB	G22	G22 No Longer Needed	CHANNEL-LS	设备配件维修	Reverse	ZRB G22	维修配件
+CHANNEL-T1 ZRB G22	维修配件-退回	ZRB	G22	G22 No Longer Needed	CHANNEL-T1	设备配件维修	Reverse	ZRB G22	维修配件
+HOSP-CE-PB ZRB G22	维修配件-退回	ZRB	G22	G22 No Longer Needed	HOSP-CE-PB	设备配件维修	Reverse	ZRB G22	维修配件
+HOSP-CE-PV ZRB G22	维修配件-退回	ZRB	G22	G22 No Longer Needed	HOSP-CE-PV	设备配件维修	Reverse	ZRB G22	维修配件
+INTER-BR-SRAI ZRB G22	维修配件-退回	ZRB	G22	G22 No Longer Needed	INTER-BR-SRAI	设备配件维修	Reverse	ZRB G22	维修配件
+CHANNEL-LP CR W06	投诉-退款	CR	W06	W06 CHN: Complaint with CR	CHANNEL-LP	投诉	CR/DR	CR W06	NA
+CHANNEL-LS CR W06	投诉-退款	CR	W06	W06 CHN: Complaint with CR	CHANNEL-LS	投诉	CR/DR	CR W06	NA
+CHANNEL-T1 CR W06	投诉-退款	CR	W06	W06 CHN: Complaint with CR	CHANNEL-T1	投诉	CR/DR	CR W06	NA
+HOSP-DS-PB CR W06	投诉-退款	CR	W06	W06 CHN: Complaint with CR	HOSP-DS-PB	投诉	CR/DR	CR W06	NA
+HOSP-DS-PV CR W06	投诉-退款	CR	W06	W06 CHN: Complaint with CR	HOSP-DS-PV	投诉	CR/DR	CR W06	NA
+CHANNEL-LP KA XX2	投诉-退货-寄售产品	KA	XX2	XX2 CHN: CE FOR KB/KA	CHANNEL-LP	投诉	Reverse	KA XX2	投诉
+CHANNEL-LS KA XX2	投诉-退货-寄售产品	KA	XX2	XX2 CHN: CE FOR KB/KA	CHANNEL-LS	投诉	Reverse	KA XX2	投诉
+CHANNEL-T1 KA XX2	投诉-退货-寄售产品	KA	XX2	XX2 CHN: CE FOR KB/KA	CHANNEL-T1	投诉	Reverse	KA XX2	投诉
+HOSP-DS-PB KA XX2	投诉-退货-寄售产品	KA	XX2	XX2 CHN: CE FOR KB/KA	HOSP-DS-PB	投诉	Reverse	KA XX2	投诉
+HOSP-DS-PV KA XX2	投诉-退货-寄售产品	KA	XX2	XX2 CHN: CE FOR KB/KA	HOSP-DS-PV	投诉	Reverse	KA XX2	投诉
+INTER-BR-SRAI KA XX2	投诉-退货-程控仪	KA	XX2	XX2 CHN: CE FOR KB/KA	INTER-BR-SRAI	投诉	Reverse	KA XX2	投诉
+HOSP-DS-PB RE W06	投诉-退货退款	RE	W06	W06 CHN: Complaint with CR	HOSP-DS-PB	投诉	Reverse	RE W06	投诉
+HOSP-DS-PV RE W06	投诉-退货退款	RE	W06	W06 CHN: Complaint with CR	HOSP-DS-PV	投诉	Reverse	RE W06	投诉
+CHANNEL-LP RE W06	投诉-退货退款	RE	W06	W06 CHN: Complaint with CR	CHANNEL-LP	投诉	Reverse	RE W06	投诉
+CHANNEL-LS RE W06	投诉-退货退款	RE	W06	W06 CHN: Complaint with CR	CHANNEL-LS	投诉	Reverse	RE W06	投诉
+CHANNEL-T1 RE W06	投诉-退货退款	RE	W06	W06 CHN: Complaint with CR	CHANNEL-T1	投诉	Reverse	RE W06	投诉
+INTER-BR-SRAI ZNC ZSX	维修配件-发货	ZNC	ZSX	ZSX Service Courtesy	INTER-BR-SRAI	设备配件维修	Outbound	ZNC ZSX	备件出库
+INTER-SA-ASS ZNC ZSI	维修配件-发货	ZNC	ZSI	ZSI Service Installation	INTER-SA-ASS	设备配件维修	outbound	ZNC ZSI	备件出库
+INTER-SA-ASS ZNC ZSX	维修配件-发货	ZNC	ZSX	ZSX Service Courtesy	INTER-SA-ASS	设备配件维修	Outbound	ZNC ZSX	备件出库
+HOSP-CT-PB FD D41	样品-临床测试	FD	D41	D41 CHN: Clinical Sample	HOSP-CT-PB	样品订单	Outbound	FD D41	临床样品出库
+HOSP-CT-PV FD D41	样品-临床测试	FD	D41	D41 CHN: Clinical Sample	HOSP-CT-PV	样品订单	Outbound	FD D41	临床样品出库
+CHANNEL-LP ZRB XX1	投诉-退货（客户物权）	ZRB	XX1	XX1 CHN: CE FOR ZNC/ZRB	CHANNEL-LP	投诉	Reverse	ZRB XX1	投诉
+CHANNEL-LS ZRB XX1	投诉-退货（客户物权）	ZRB	XX1	XX1 CHN: CE FOR ZNC/ZRB	CHANNEL-LS	投诉	Reverse	ZRB XX1	投诉
+CHANNEL-T1 ZRB XX1	投诉-退货（客户物权）	ZRB	XX1	XX1 CHN: CE FOR ZNC/ZRB	CHANNEL-T1	投诉	Reverse	ZRB XX1	投诉
+HOSP-DS-PB ZRB XX1	投诉-退货（客户物权）	ZRB	XX1	XX1 CHN: CE FOR ZNC/ZRB	HOSP-DS-PB	投诉	Reverse	ZRB XX1	投诉
+HOSP-DS-PV ZRB XX1	投诉-退货（客户物权）	ZRB	XX1	XX1 CHN: CE FOR ZNC/ZRB	HOSP-DS-PV	投诉	Reverse	ZRB XX1	投诉
+CHANNEL-LP CR W19	现金订单-促销订单冲销	CR	W19	W19 CHN: Promotion	CHANNEL-LP	批发	CR/DR	CR W19	NA
+CHANNEL-LS CR W19	现金订单-促销订单冲销	CR	W19	W19 CHN: Promotion	CHANNEL-LS	批发	CR/DR	CR W19	NA
+CHANNEL-T1 CR W19	现金订单-促销订单冲销	CR	W19	W19 CHN: Promotion	CHANNEL-T1	批发	CR/DR	CR W19	NA
+CHANNEL-LP CR W19	现金订单-积分订单冲销	CR	W19	W19 CHN: Promotion	CHANNEL-LP	批发	CR/DR	CR W19	NA
+CHANNEL-LS CR W19	现金订单-积分订单冲销	CR	W19	W19 CHN: Promotion	CHANNEL-LS	批发	CR/DR	CR W19	NA
+CHANNEL-T1 CR W19	现金订单-积分订单冲销	CR	W19	W19 CHN: Promotion	CHANNEL-T1	批发	CR/DR	CR W19	NA
+CHANNEL-LP CR D07	Rebate/Return/Credit Adjust	CR	D07	D07 Price Adjustment	CHANNEL-LP	批发	CR/DR	CR D07	NA
+CHANNEL-LS CR D07	Rebate/Return/Credit Adjust	CR	D07	D07 Price Adjustment	CHANNEL-LS	批发	CR/DR	CR D07	NA
+HOSP-DS-PB CR D07	Rebate/Return/Credit Adjust	CR	D07	D07 Price Adjustment	HOSP-DS-PB	批发	CR/DR	CR D07	NA
+HOSP-DS-PV CR D07	Rebate/Return/Credit Adjust	CR	D07	D07 Price Adjustment	HOSP-DS-PV	批发	CR/DR	CR D07	NA
+INTER-SA-SRR CR F04	SRR	CR	F04	F04 Even Exchange	INTER-SA-SRR	批发	CR/DR	CR F04	NA
+CHANNEL-LP CR F04	商业退款-合同内	CR	F04	F04 Even Exchange	CHANNEL-LP	批发	CR/DR	CR F04	NA
+CHANNEL-LS CR F04	商业退款-合同内	CR	F04	F04 Even Exchange	CHANNEL-LS	批发	CR/DR	CR F04	NA
+CHANNEL-T1 CR F04	商业退款-合同内	CR	F04	F04 Even Exchange	CHANNEL-T1	批发	CR/DR	CR F04	NA
+CHANNEL-LP CR G02	商业退款-到货破损	CR	G02	G02 Damaged In Transit	CHANNEL-LP	批发	CR/DR	CR G02	NA
+CHANNEL-LS CR G02	商业退款-到货破损	CR	G02	G02 Damaged In Transit	CHANNEL-LS	批发	CR/DR	CR G02	NA
+CHANNEL-T1 CR G02	商业退款-到货破损	CR	G02	G02 Damaged In Transit	CHANNEL-T1	批发	CR/DR	CR G02	NA
+HOSP-DS-PB CR G02	商业退款-到货破损	CR	G02	G02 Damaged In Transit	HOSP-DS-PB	批发	CR/DR	CR G02	NA
+HOSP-DS-PV CR G02	商业退款-到货破损	CR	G02	G02 Damaged In Transit	HOSP-DS-PV	批发	CR/DR	CR G02	NA
+CHANNEL-LP CR G24	商业退款-召回	CR	G24	G24 Recall (As needed by Product)	CHANNEL-LP	批发	CR/DR	CR G24	NA
+CHANNEL-LS CR G24	商业退款-召回	CR	G24	G24 Recall (As needed by Product)	CHANNEL-LS	批发	CR/DR	CR G24	NA
+CHANNEL-T1 CR G24	商业退款-召回	CR	G24	G24 Recall (As needed by Product)	CHANNEL-T1	批发	CR/DR	CR G24	NA
+HOSP-DS-PB CR G24	商业退款-召回	CR	G24	G24 Recall (As needed by Product)	HOSP-DS-PB	批发	CR/DR	CR G24	NA
+HOSP-DS-PV CR G24	商业退款-召回	CR	G24	G24 Recall (As needed by Product)	HOSP-DS-PV	批发	CR/DR	CR G24	NA
+CHANNEL-LP CR W18	Rebate/Return/Credit Adjust	CR	W18	W18 CHN: Normal Rebate	CHANNEL-LP	批发	CR/DR	CR W18	NA
+CHANNEL-LS CR W18	Rebate/Return/Credit Adjust	CR	W18	W18 CHN: Normal Rebate	CHANNEL-LS	批发	CR/DR	CR W18	NA
+CHANNEL-T1 CR W18	Rebate/Return/Credit Adjust	CR	W18	W18 CHN: Normal Rebate	CHANNEL-T1	批发	CR/DR	CR W18	NA
+HOSP-DS-PB CR W18	Rebate/Return/Credit Adjust	CR	W18	W18 CHN: Normal Rebate	HOSP-DS-PB	批发	CR/DR	CR W18	NA
+INTER-SA-SRR CR W18	SRR	CR	W18	W18 CHN: Normal Rebate	INTER-SA-SRR	批发	CR/DR	CR W18	NA
+INTER-SA-SRR CR W19	SRR	CR	W19	W19 CHN: Promotion	INTER-SA-SRR	批发	CR/DR	CR W19	NA
+CHANNEL-LP CR XX3	商业退款-合同外	CR	XX3	XX3 CHN: EXPIRED EXCHANGE	CHANNEL-LP	批发	CR/DR	CR XX3	NA
+CHANNEL-LS CR XX3	商业退款-合同外	CR	XX3	XX3 CHN: EXPIRED EXCHANGE	CHANNEL-LS	批发	CR/DR	CR XX3	NA
+CHANNEL-T1 CR XX3	商业退款-合同外	CR	XX3	XX3 CHN: EXPIRED EXCHANGE	CHANNEL-T1	批发	CR/DR	CR XX3	NA
+CHANNEL-LP DR D07	Rebate/Return/Credit Adjust	DR	D07	D07 Price Adjustment	CHANNEL-LP	批发	CR/DR	DR D07	NA
+CHANNEL-T1 DR D07	Rebate/Return/Credit Adjust	DR	D07	D07 Price Adjustment	CHANNEL-T1	批发	CR/DR	DR D07	NA
+CHANNEL-LS DR D07	Rebate/Return/Credit Adjust	DR	D07	D07 Price Adjustment	CHANNEL-LS	批发	CR/DR	DR D07	NA
+HOSP-DS-PB DR D07	Rebate/Return/Credit Adjust	DR	D07	D07 Price Adjustment	HOSP-DS-PB	批发	CR/DR	DR D07	NA
+HOSP-DS-PV DR D07	Rebate/Return/Credit Adjust	DR	D07	D07 Price Adjustment	HOSP-DS-PV	批发	CR/DR	DR D07	NA
+INTER-SA-SRR DR F04	SRR	DR	F04	F04 Even Exchange	INTER-SA-SRR	批发	CR/DR	DR F04	NA
+CHANNEL-LP DR F04	商业退款-合同内（需额外备注）	DR	F04	F04 Even Exchange	CHANNEL-LP	批发	CR/DR	DR F04	NA
+CHANNEL-LS DR F04	商业退款-合同内（需额外备注）	DR	F04	F04 Even Exchange	CHANNEL-LS	批发	CR/DR	DR F04	NA
+CHANNEL-T1 DR F04	商业退款-合同内（需额外备注）	DR	F04	F04 Even Exchange	CHANNEL-T1	批发	CR/DR	DR F04	NA
+CHANNEL-LP DR W18	Rebate/Return/Credit Adjust	DR	W18	W18 CHN: Normal Rebate	CHANNEL-LP	批发	CR/DR	DR W18	NA
+CHANNEL-LS DR W18	Rebate/Return/Credit Adjust	DR	W18	W18 CHN: Normal Rebate	CHANNEL-LS	批发	CR/DR	DR W18	NA
+CHANNEL-T1 DR W18	Rebate/Return/Credit Adjust	DR	W18	W18 CHN: Normal Rebate	CHANNEL-T1	批发	CR/DR	DR W18	NA
+HOSP-DS-PB DR W18	Rebate/Return/Credit Adjust	DR	W18	W18 CHN: Normal Rebate	HOSP-DS-PB	批发	CR/DR	DR W18	NA
+INTER-SA-SRR DR W18	SRR	DR	W18	W18 CHN: Normal Rebate	INTER-SA-SRR	批发	CR/DR	DR W18	NA
+INTER-SA-SRR DR W19	SRR	DR	W19	W19 CHN: Promotion	INTER-SA-SRR	批发	CR/DR	DR W19	NA
+CHANNEL-LP DR XX3	商业退款-合同外（需额外备注）	DR	XX3	XX3 CHN: EXPIRED EXCHANGE	CHANNEL-LP	批发	CR/DR	DR XX3	NA
+CHANNEL-LS DR XX3	商业退款-合同外（需额外备注）	DR	XX3	XX3 CHN: EXPIRED EXCHANGE	CHANNEL-LS	批发	CR/DR	DR XX3	NA
+CHANNEL-T1 DR XX3	商业退款-合同外（需额外备注）	DR	XX3	XX3 CHN: EXPIRED EXCHANGE	CHANNEL-T1	批发	CR/DR	DR XX3	NA
+CHANNEL-LP OR W19	现金订单-促销	OR	W19	W19 CHN: Promotion	CHANNEL-LP	批发	outbound	OR W19	正常出库
+CHANNEL-LS OR W19	现金订单-促销	OR	W19	W19 CHN: Promotion	CHANNEL-LS	批发	outbound	OR W19	正常出库
+CHANNEL-T1 OR W19	现金订单-促销	OR	W19	W19 CHN: Promotion	CHANNEL-T1	批发	outbound	OR W19	正常出库
+CHANNEL-LP OR W19	现金订单-积分	OR	W19	W19 CHN: Promotion	CHANNEL-LP	批发	outbound	OR W19	正常出库
+CHANNEL-LS OR W19	现金订单-积分	OR	W19	W19 CHN: Promotion	CHANNEL-LS	批发	outbound	OR W19	正常出库
+CHANNEL-T1 OR W19	现金订单-积分	OR	W19	W19 CHN: Promotion	CHANNEL-T1	批发	outbound	OR W19	正常出库
+CHANNEL-FTC OR X01	现金订单-普通	OR	X01	X01 CHN: Standard Order	CHANNEL-FTC	批发	outbound	OR X01	正常出库
+CHANNEL-LP OR X01	现金订单-普通	OR	X01	X01 CHN: Standard Order	CHANNEL-LP	批发	outbound	OR X01	正常出库
+CHANNEL-LS OR X01	现金订单-普通	OR	X01	X01 CHN: Standard Order	CHANNEL-LS	批发	outbound	OR X01	正常出库
+CHANNEL-T1 OR X01	现金订单-普通	OR	X01	X01 CHN: Standard Order	CHANNEL-T1	批发	outbound	OR X01	正常出库
+HOSP-DS-PV OR X01	现金订单-普通	OR	X01	X01 CHN: Standard Order	HOSP-DS-PV	批发	outbound	OR X01	正常出库
+CHANNEL-FTC OR X01	现金订单-一次性特价订单	OR	X01	X01 CHN: Standard Order	CHANNEL-FTC	批发	outbound	OR X01	正常出库
+CHANNEL-LP OR X01	现金订单-一次性特价订单	OR	X01	X01 CHN: Standard Order	CHANNEL-LP	批发	outbound	OR X01	正常出库
+CHANNEL-LS OR X01	现金订单-一次性特价订单	OR	X01	X01 CHN: Standard Order	CHANNEL-LS	批发	outbound	OR X01	正常出库
+CHANNEL-T1 OR X01	现金订单-一次性特价订单	OR	X01	X01 CHN: Standard Order	CHANNEL-T1	批发	outbound	OR X01	正常出库
+HOSP-DS-PV OR X01	现金订单-一次性特价订单	OR	X01	X01 CHN: Standard Order	HOSP-DS-PV	批发	outbound	OR X01	正常出库
+CHANNEL-FTC OR X01	现金订单-组套	OR	X01	X01 CHN: Standard Order	CHANNEL-FTC	批发	outbound	OR X01	正常出库
+CHANNEL-LP OR X01	现金订单-组套	OR	X01	X01 CHN: Standard Order	CHANNEL-LP	批发	outbound	OR X01	正常出库
+CHANNEL-LS OR X01	现金订单-组套	OR	X01	X01 CHN: Standard Order	CHANNEL-LS	批发	outbound	OR X01	正常出库
+CHANNEL-T1 OR X01	现金订单-组套	OR	X01	X01 CHN: Standard Order	CHANNEL-T1	批发	outbound	OR X01	正常出库
+HOSP-DS-PV OR X01	现金订单-组套	OR	X01	X01 CHN: Standard Order	HOSP-DS-PV	批发	outbound	OR X01	正常出库
+CHANNEL-LP RE F04	商业退货退款-合同内	RE	F04	F04 Even Exchange	CHANNEL-LP	批发	Reverse	RE F04	商业退货
+CHANNEL-LS RE F04	商业退货退款-合同内	RE	F04	F04 Even Exchange	CHANNEL-LS	批发	Reverse	RE F04	商业退货
+CHANNEL-T1 RE F04	商业退货退款-合同内	RE	F04	F04 Even Exchange	CHANNEL-T1	批发	Reverse	RE F04	商业退货
+HOSP-DS-PB RE G02	商业退货退款-到货破损	RE	G02	G02 Damaged In Transit	HOSP-DS-PB	批发	Reverse	RE G02	商业退货
+HOSP-DS-PV RE G02	商业退货退款-到货破损	RE	G02	G02 Damaged In Transit	HOSP-DS-PV	批发	Reverse	RE G02	商业退货
+CHANNEL-LP RE G02	商业退货退款-到货破损	RE	G02	G02 Damaged In Transit	CHANNEL-LP	批发	Reverse	RE G02	商业退货
+CHANNEL-LS RE G02	商业退货退款-到货破损	RE	G02	G02 Damaged In Transit	CHANNEL-LS	批发	Reverse	RE G02	商业退货
+CHANNEL-T1 RE G02	商业退货退款-到货破损	RE	G02	G02 Damaged In Transit	CHANNEL-T1	批发	Reverse	RE G02	商业退货
+HOSP-DS-PB RE G24	商业退货退款-召回	RE	G24	G24 Recall (As needed by Product)	HOSP-DS-PB	批发	Reverse	RE G24	召回
+HOSP-DS-PV RE G24	商业退货退款-召回	RE	G24	G24 Recall (As needed by Product)	HOSP-DS-PV	批发	Reverse	RE G24	召回
+CHANNEL-LP RE G24	商业退货退款-召回	RE	G24	G24 Recall (As needed by Product)	CHANNEL-LP	批发	Reverse	RE G24	召回
+CHANNEL-LS RE G24	商业退货退款-召回	RE	G24	G24 Recall (As needed by Product)	CHANNEL-LS	批发	Reverse	RE G24	召回
+CHANNEL-T1 RE G24	商业退货退款-召回	RE	G24	G24 Recall (As needed by Product)	CHANNEL-T1	批发	Reverse	RE G24	召回
+CHANNEL-LP RE XX3	商业退货退款-合同外	RE	XX3	XX3 CHN: EXPIRED EXCHANGE	CHANNEL-LP	批发	Reverse	RE XX3	商业退货
+CHANNEL-LS RE XX3	商业退货退款-合同外	RE	XX3	XX3 CHN: EXPIRED EXCHANGE	CHANNEL-LS	批发	Reverse	RE XX3	商业退货
+CHANNEL-T1 RE XX3	商业退货退款-合同外	RE	XX3	XX3 CHN: EXPIRED EXCHANGE	CHANNEL-T1	批发	Reverse	RE XX3	商业退货
+INTER-SA-CM FD D02	样品-商业	FD	D02	D02 Sales Samples - CC	INTER-SA-CM	样品订单	Outbound	FD D02	商业样品出库
+CHANNEL-LP ZNC XX1	投诉-换货	ZNC	XX1	XX1 CHN: CE FOR ZNC/ZRB	CHANNEL-LP	投诉	Outbound	ZNC XX1	正常出库
+CHANNEL-LS ZNC XX1	投诉-换货	ZNC	XX1	XX1 CHN: CE FOR ZNC/ZRB	CHANNEL-LS	投诉	Outbound	ZNC XX1	正常出库
+CHANNEL-T1 ZNC XX1	投诉-换货	ZNC	XX1	XX1 CHN: CE FOR ZNC/ZRB	CHANNEL-T1	投诉	Outbound	ZNC XX1	正常出库
+HOSP-DS-PB ZNC XX1	投诉-换货	ZNC	XX1	XX1 CHN: CE FOR ZNC/ZRB	HOSP-DS-PB	投诉	Outbound	ZNC XX1	正常出库
+HOSP-DS-PV ZNC XX1	投诉-换货	ZNC	XX1	XX1 CHN: CE FOR ZNC/ZRB	HOSP-DS-PV	投诉	Outbound	ZNC XX1	正常出库
+CHANNEL-LP ZNC F04	商业换货-合同内	ZNC	F04	F04 Even Exchange	CHANNEL-LP	批发	outbound	ZNC F04	正常出库
+CHANNEL-LS ZNC F04	商业换货-合同内	ZNC	F04	F04 Even Exchange	CHANNEL-LS	批发	outbound	ZNC F04	正常出库
+CHANNEL-T1 ZNC F04	商业换货-合同内	ZNC	F04	F04 Even Exchange	CHANNEL-T1	批发	outbound	ZNC F04	正常出库
+CHANNEL-LP ZNC G02	商业换货-到货破损	ZNC	G02	G02 Damaged In Transit	CHANNEL-LP	批发	outbound	ZNC G02	正常出库
+CHANNEL-LS ZNC G02	商业换货-到货破损	ZNC	G02	G02 Damaged In Transit	CHANNEL-LS	批发	outbound	ZNC G02	正常出库
+CHANNEL-LP ZRB F04	商业退货-合同内	ZRB	F04	F04 Even Exchange	CHANNEL-LP	批发	Reverse	ZRB F04	商业退货
+CHANNEL-LS ZRB F04	商业退货-合同内	ZRB	F04	F04 Even Exchange	CHANNEL-LS	批发	Reverse	ZRB F04	商业退货
+CHANNEL-T1 ZRB F04	商业退货-合同内	ZRB	F04	F04 Even Exchange	CHANNEL-T1	批发	Reverse	ZRB F04	商业退货
+CHANNEL-LP ZRB G02	商业退货-到货破损	ZRB	G02	G02 Damaged In Transit	CHANNEL-LP	批发	Reverse	ZRB G02	商业退货
+CHANNEL-LS ZRB G02	商业退货-到货破损	ZRB	G02	G02 Damaged In Transit	CHANNEL-LS	批发	Reverse	ZRB G02	商业退货
+CHANNEL-T1 ZRB G02	商业退货-到货破损	ZRB	G02	G02 Damaged In Transit	CHANNEL-T1	批发	Reverse	ZRB G02	商业退货
+HOSP-DS-PB ZRB G02	商业退货-到货破损	ZRB	G02	G02 Damaged In Transit	HOSP-DS-PB	批发	Reverse	ZRB G02	商业退货
+HOSP-DS-PV ZRB G02	商业退货-到货破损	ZRB	G02	G02 Damaged In Transit	HOSP-DS-PV	批发	Reverse	ZRB G02	商业退货
+CHANNEL-LP ZRB G24	商业退货-召回	ZRB	G24	G24 Recall (As needed by Product)	CHANNEL-LP	批发	Reverse	ZRB G24	召回
+CHANNEL-LS ZRB G24	商业退货-召回	ZRB	G24	G24 Recall (As needed by Product)	CHANNEL-LS	批发	Reverse	ZRB G24	召回
+CHANNEL-T1 ZRB G24	商业退货-召回	ZRB	G24	G24 Recall (As needed by Product)	CHANNEL-T1	批发	Reverse	ZRB G24	召回
+HOSP-DS-PB ZRB G24	商业退货-召回	ZRB	G24	G24 Recall (As needed by Product)	HOSP-DS-PB	批发	Reverse	ZRB G24	召回
+HOSP-DS-PV ZRB G24	商业退货-召回	ZRB	G24	G24 Recall (As needed by Product)	HOSP-DS-PV	批发	Reverse	ZRB G24	召回
+CHANNEL-LP ZRB XX3	商业退货-合同外	ZRB	XX3	XX3 CHN: EXPIRED EXCHANGE	CHANNEL-LP	批发	Reverse	ZRB XX3	商业退货
+CHANNEL-LS ZRB XX3	商业退货-合同外	ZRB	XX3	XX3 CHN: EXPIRED EXCHANGE	CHANNEL-LS	批发	Reverse	ZRB XX3	商业退货
+CHANNEL-T1 ZRB XX3	商业退货-合同外	ZRB	XX3	XX3 CHN: EXPIRED EXCHANGE	CHANNEL-T1	批发	Reverse	ZRB XX3	商业退货
+INTER-BR-SRAI KA B13	样机退回-SRAI	KA	B13	B13 CONSIGNMENT: Rep Non-Consign Return	INTER-BR-SRAI	样机	Reverse	KA B13	样机退回
+INTER-BR-SRAI KB X06	样机发货-SRAI	KB	X06	X06 CHN: NON-CSGN Fill-up	INTER-BR-SRAI	样机	Outbound	KB X06	样机发货
+CHANNEL-T1 ZNC G02	商业换货-到货破损	ZNC	G02	G02 Damaged In Transit	CHANNEL-T1	批发	outbound	ZNC G02	正常出库
+INTER-BR-SRAI ZTKA B17	样机转移-SARI	ZTKA	B17	B17 CONSIGNMENT:Cust to Cust Consignment	INTER-BR-SRAI	样机	Transfer	ZTKA B17	NA
+INTER-BR-SRAI ZTKB B17	样机转移-SARI	ZTKB	B17	B17 CONSIGNMENT:Cust to Cust Consignment	INTER-BR-SRAI	样机	Transfer	ZTKB B17	NA
+HOSP-DS-PB ZNC G02	商业换货-到货破损	ZNC	G02	G02 Damaged In Transit	HOSP-DS-PB	批发	outbound	ZNC G02	正常出库
+HOSP-DS-PV ZNC G02	商业换货-到货破损	ZNC	G02	G02 Damaged In Transit	HOSP-DS-PV	批发	outbound	ZNC G02	正常出库
+CHANNEL-LP ZNC XX3	商业换货-合同外	ZNC	XX3	XX3 CHN: EXPIRED EXCHANGE	CHANNEL-LP	批发	outbound	ZNC XX3	正常出库
+CHANNEL-LS ZNC XX3	商业换货-合同外	ZNC	XX3	XX3 CHN: EXPIRED EXCHANGE	CHANNEL-LS	批发	outbound	ZNC XX3	正常出库
+INTER-SA-CM ZFD G24	样品退回-召回	ZFD	G24	G24 Recall (As needed by Product)	INTER-SA-CM	样品订单	Reverse	ZFD G24	召回
+INTER-SA-RA ZFD G24	样品退回-召回	ZFD	G24	G24 Recall (As needed by Product)	INTER-SA-RA	样品订单	Reverse	ZFD G24	召回
+HOSP-CT-PB ZFD G24	样品退回-召回	ZFD	G24	G24 Recall (As needed by Product)	HOSP-CT-PB	样品订单	Reverse	ZFD G24	召回
+HOSP-CT-PV ZFD G24	样品退回-召回	ZFD	G24	G24 Recall (As needed by Product)	HOSP-CT-PV	样品订单	Reverse	ZFD G24	召回
+INTER-SA-CM ZFD W04	样品退回-商业	ZFD	W04	W04 CHN: Sales Sample Return	INTER-SA-CM	样品订单	Reverse	ZFD W04	商业样品退货
+HOSP-CT-PB ZFD W22	样品退回-临床测试	ZFD	W22	W22 CHN: Clinical Sample Return	HOSP-CT-PB	样品订单	Reverse	ZFD W22	临床样品退货
+HOSP-CT-PV ZFD W22	样品退回-临床测试	ZFD	W22	W22 CHN: Clinical Sample Return	HOSP-CT-PV	样品订单	Reverse	ZFD W22	临床样品退货
+HOSP-DS-PB OR X01	现金订单-普通	OR	X01	X01 CHN: Standard Order	HOSP-DS-PB	批发	outbound	OR X01	正常出库
+HOSP-DS-PB OR X01	现金订单-一次性特价订单	OR	X01	X01 CHN: Standard Order	HOSP-DS-PB	批发	outbound	OR X01	正常出库
+HOSP-DS-PB OR X01	现金订单-组套	OR	X01	X01 CHN: Standard Order	HOSP-DS-PB	批发	outbound	OR X01	正常出库
+CHANNEL-T1 ZNC XX3	商业换货-合同外	ZNC	XX3	XX3 CHN: EXPIRED EXCHANGE	CHANNEL-T1	批发	outbound	ZNC XX3	正常出库
+INTER-BR-SRAI KA B11	维修配件退回-SARI	KA	B11	B11 CONSIGNMENT: Rep Consignment Return	INTER-BR-SRAI	设备配件维修	Reverse	KA B11	NA
+INTER-BR-SRAI ZLST 196	程控仪丢失	ZLST	196	CRM ZSCP LOST Field consignment	INTER-BR-SRAI	样机	other	ZLST 196	NA
+INTER-BR-SRAI ZNC X06	样机发货-非SARI	ZNC	X06	X06 CHN: NON-CSGN Fill-up	INTER-BR-SRAI	样机	Outbound	ZNC X06	正常出库
+HOSP-DS-PB KR W14	寄售冲红	KR	W14	W14 CHN: DEALER HANDOVER	HOSP-DS-PB	寄售	Billing Only	KR W14	NA
+HOSP-CE-PV ZRB XX1	投诉-退货（客户物权）	ZRB	XX1	XX1 CHN: CE FOR ZNC/ZRB	HOSP-CE-PV	投诉	Reverse	ZRB XX1	投诉
+HOSP-CE-PB ZRB XX1	投诉-退货（客户物权）	ZRB	XX1	XX1 CHN: CE FOR ZNC/ZRB	HOSP-CE-PB	投诉	Reverse	ZRB XX1	投诉
+INTER-SA-ASS ZRB XX1	维修配件-退回	ZRB	XX1	XX1 CHN: CE FOR ZNC/ZRB	INTER-SA-ASS	设备配件维修	Reverse	ZRB XX1	投诉
+CHANNEL-T1 DR W06	投诉-退款	DR	W06	W06 CHN: Complaint with CR	CHANNEL-T1	投诉	CR/DR	DR W06	NA
+CHANNEL-LP DR W06	投诉-退款	DR	W06	W06 CHN: Complaint with CR	CHANNEL-LP	投诉	CR/DR	DR W06	NA
+INTER-BR-SRAI ZFND B37	程控仪找回	ZFND	B37	B37 SRAI Write Off Reversal	INTER-BR-SRAI	样机	other	ZFND B37	NA
+INTER-BR-SRAI KB B37	程控仪找回	KB	B37	B37 SRAI Write Off Reversal	INTER-BR-SRAI	样机	outbound	KB B37	NA
+CHANNEL-LP ZNC G24	商业换货 - 召回	ZNC	G24	G24 Recall (As needed by Product)	CHANNEL-LP	批发	outbound	ZNC G24	正常出库
+INTER-SA-ASS ZTKA B17	维修配件-转移	ZTKA	B17	B17 CONSIGNMENT:Cust to Cust Consignment	INTER-SA-ASS	设备配件维修	Transfer	ZTKA B17	NA
+CHANNEL-LP DR D07	维修配件-收费 (not use any more)	DR	D07	D07 Price Adjustment	CHANNEL-LP	设备配件维修	CR/DR	DR D07	NA
+CHANNEL-LS DR D07	维修配件-收费 (not use any more)	DR	D07	D07 Price Adjustment	CHANNEL-LS	设备配件维修	CR/DR	DR D07	NA
+HOSP-CE-PB DR D07	维修配件-收费 (not use any more)	DR	D07	D07 Price Adjustment	HOSP-CE-PB	设备配件维修	CR/DR	DR D07	NA
+HOSP-CE-PV DR D07	维修配件-收费 (not use any more)	DR	D07	D07 Price Adjustment	HOSP-CE-PV	设备配件维修	CR/DR	DR D07	NA
+CHANNEL-T1 DR D07	维修配件-收费 (not use any more)	DR	D07	D07 Price Adjustment	CHANNEL-T1	设备配件维修	CR/DR	DR D07	NA
+HOSP-DS-PB RE XX3	商业退货退款-合同外	RE	XX3	XX3 CHN: EXPIRED EXCHANGE	HOSP-DS-PB	批发	Reverse	RE XX3	商业退货
+INTER-BR-SRAI KA F02	维修配件退回-SARI	KA	F02	F02 Return Replacement	INTER-BR-SRAI	设备配件维修	Outbound	KA F02	NA
+INTER-BR-SRAI KA F05	维修配件退回-SARI	KA	F05	F05 Warranty Replacement	INTER-BR-SRAI	设备配件维修	Outbound	KA F05	NA
+CHANNEL-LS DR W06	投诉-退款	DR	W06	W06 CHN: Complaint with CR	CHANNEL-LS	投诉	CR/DR	DR W06	NA
+INTER-SA-ASS ZNC XX1	维修配件-发货	ZNC	XX1	XX1 CHN: CE FOR ZNC/ZRB	INTER-SA-ASS	设备配件维修	outbound	ZNC XX1	正常出库
+HOSP-DS-PV KR W14	寄售冲红	KR	W14	W14 CHN: DEALER HANDOVER	HOSP-DS-PV	寄售	Billing Only	KR W14	NA
+CHANNEL-LP ZRB G49	维修配件-退回	ZRB	G49	Return for repair	CHANNEL-LP	设备配件维修	Reverse	ZRB G49	NA
+CHANNEL-LS ZRB G49	维修配件-退回	ZRB	G49	Return for repair	CHANNEL-LS	设备配件维修	Reverse	ZRB G49	NA
+CHANNEL-T1 ZRB G49	维修配件-退回	ZRB	G49	Return for repair	CHANNEL-T1	设备配件维修	Reverse	ZRB G49	NA
+HOSP-CE-PB ZRB G49	维修配件-退回	ZRB	G49	Return for repair	HOSP-CE-PB	设备配件维修	Reverse	ZRB G49	NA
+HOSP-CE-PV ZRB G49	维修配件-退回	ZRB	G49	Return for repair	HOSP-CE-PV	设备配件维修	Reverse	ZRB G49	NA
+INTER-BR-SRAI ZRB G49	维修配件-退回	ZRB	G49	Return for repair	INTER-BR-SRAI	设备配件维修	Reverse	ZRB G49	NA
+INTER-SA-ASS ZRB G49	维修配件-退回	ZRB	G49	Return for repair	INTER-SA-ASS	设备配件维修	Reverse	ZRB G49	NA

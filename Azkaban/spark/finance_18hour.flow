@@ -1,0 +1,8 @@
+nodes:
+  - name: ftp_finance_to_pg
+    type: flow
+    nodes:
+    -   name: ftp_finance_to_pg
+        type: command
+        config:
+            command: /root/anaconda3/bin/python /root/bscflow/confidential_data/flance.py

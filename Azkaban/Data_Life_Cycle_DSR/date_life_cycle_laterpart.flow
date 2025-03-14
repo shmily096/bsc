@@ -1,0 +1,98 @@
+nodes:
+  - name: bsc_ops_db_to_hdfs
+    type: flow
+    nodes:
+     -  name: commercial_invoice_dn_mapping
+        type: command
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'invoice_dn_map'
+     -  name: work_order
+        type: command
+        dependsOn:
+            - commercial_invoice_dn_mapping
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'wo'
+     -  name: so_invoice
+        type: command
+        dependsOn:
+            - work_order
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'so_invoice'
+     -  name: inventory_onhand
+        type: command
+        dependsOn:
+            - so_invoice
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'onhand'
+     -  name: purchase_order
+        type: command
+        dependsOn:
+            - inventory_onhand
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'po'
+     -  name: so_receiving_confirmation_info
+        type: command
+        dependsOn:
+            - so_invoice
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'socd'
+     -  name: dealer_purchase_quotation
+        type: command
+        dependsOn:
+            - so_receiving_confirmation_info
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh 'dpq'
+  - name: hdfs_to_ods
+    type: flow
+    dependsOn:
+        - bsc_ops_db_to_hdfs
+    nodes:
+    -   name: load_master_into_ods
+        type: command
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_master.sh
+    -   name: load_transation_into_ods
+        type: command
+        dependsOn:
+            - load_master_into_ods
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_trans.sh
+  - name: ods_to_dwd
+    type: flow
+    dependsOn:
+        - hdfs_to_ods
+    nodes:
+     -  name: fact_sales_order_invoice
+        type: command
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_sales_order_invoice.sh
+     -  name: fact_so_dn
+        type: command
+        dependsOn:
+            - fact_sales_order_invoice
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_so_dn.sh
+     -  name: fact_work_order
+        type: command
+        dependsOn:
+            - fact_so_dn
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_work_order.sh
+     -  name: fact_dealer_purchase_quotation
+        type: command
+        dependsOn:
+            - fact_work_order
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_dealer_purchase_quotation.sh
+     -  name: fact_inventory_onhand
+        type: command
+        dependsOn:
+            - fact_dealer_purchase_quotation
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_inventory_onhand.sh
+     -  name: fact_purchase_order
+        type: command
+        dependsOn:
+            - fact_inventory_onhand
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_fact_purchase_order.sh

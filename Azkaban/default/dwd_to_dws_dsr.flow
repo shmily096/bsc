@@ -1,0 +1,20 @@
+nodes:
+ -  name: dsr_daily_trans
+    type: command
+    dependsOn: 
+        - dsr_ship_daily
+        - dsr_fulfill_daily
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_dsr_daily_trans.sh
+ -  name: dsr_ship_daily
+    type: command
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_dsr_ship_daily_trans.sh
+ -  name: dsr_fulfill_daily
+    type: command
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_dsr_fulfill_daily_trans.sh
+ -  name: dsr_dealer_daily
+    type: command
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_dsr_dealer_daily_transation.sh

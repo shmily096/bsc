@@ -1,0 +1,21 @@
+nodes:
+ -  name: product_putaway_leadtime_slc_ratio_app
+    type: command
+    config:
+        command: sh /bscflow/ads/ads_product_putaway_leadtime_slc_ratio.sh
+ -  name: product_putaway_leadtime_yh_ratio_app
+    type: command
+    config:
+        command: sh /bscflow/ads/ads_product_putaway_leadtime_yh_ratio.sh
+ -  name: lifecycle_leadtime_slcyh_ratio
+    type: command
+    config:
+        command: sh /bscflow/ads/ads_lifecycle_leadtime_slcyh_ratio.sh
+ -  name: imported_ratio_app
+    type: command
+    config:
+        command: sh /bscflow/ads/ads_imported_ratio.sh
+ -  name: sale_order_leadtime_ratio_app
+    type: command
+    config:
+        command: sh /bscflow/ads/ads_sale_order_leadtime_ratio.sh

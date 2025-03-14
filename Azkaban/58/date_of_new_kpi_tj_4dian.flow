@@ -1,0 +1,32 @@
+nodes:
+  - name: new_kpi_tj_pg_to_hive_pg
+    type: flow
+    nodes:
+     -  name: outbound_customclearance_tj
+        type: command
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh 'outbound_customclearance_tj'
+     -  name: inbound_declaration_tj
+        type: command
+        dependsOn:
+            - outbound_customclearance_tj
+        config:
+            command: sh /bscflow/dwd/pg_to_hdfst_to_ods_to_dwd.sh 'inbound_declaration_tj'
+     -  name: ods_to_dwd
+        type: command
+        dependsOn:
+            - inbound_declaration_tj
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_iekpi_e2e_tj.sh
+     -  name: dwd_to_hdfs
+        type: command
+        dependsOn:
+            - ods_to_dwd
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_hdfs.sh dwd_iekpi_e2e_tj
+     -  name: hdfs_to_pg
+        type: command
+        dependsOn:
+            - dwd_to_hdfs
+        config:
+            command: sh /bscflow/PG/Shell/all_dsr_to_pg_db_power.sh dwd_iekpi_e2e_tj tableaudb

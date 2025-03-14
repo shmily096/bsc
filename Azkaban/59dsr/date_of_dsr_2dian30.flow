@@ -1,0 +1,42 @@
+nodes:
+  - name: bsc_ops_db_to_hdfs_dsr
+    type: flow
+    nodes:
+    -   name: MDM_CustomerMaster
+        type: command
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh cust
+    -   name: MDM_DivisionMaster
+        type: command
+        dependsOn:
+            - MDM_CustomerMaster
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh division
+    -   name: MDM_MaterialMaster
+        type: command
+        dependsOn:
+            - MDM_DivisionMaster
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh material
+  - name: hdfs_to_ods_dsr
+    type: flow
+    dependsOn:
+        - bsc_ops_db_to_hdfs_dsr
+    nodes:
+    -   name: ods_customer_master
+        type: command
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_dsr.sh ods_customer_master
+    -   name: ods_division_master
+        type: command
+        dependsOn:
+            - ods_customer_master
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_dsr.sh ods_division_master
+    -   name: ods_material_master
+        type: command
+        dependsOn:
+            - ods_division_master
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_dsr.sh ods_material_master
+

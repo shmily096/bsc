@@ -1,0 +1,26 @@
+nodes:
+  - name: bsc_ops_db_to_hdfs_dsr_month
+    type: flow
+    nodes:
+    -   name: MDM_ExchangeRate
+        type: command
+        config:
+            command: sh /bscflow/hdfs/bsc_ops_db_to_hdfs.sh exchange_rate
+  - name: hdfs_to_ods_dsr_month
+    type: flow
+    dependsOn:
+        - bsc_ops_db_to_hdfs_dsr_month
+    nodes:
+    -   name: ods_exchange_rate
+        type: command
+        config:
+            command: sh /bscflow/ods/hdfs_to_ods_dsr.sh ods_exchange_rate
+  - name: ods_to_dwd_dsr_dwd_dim_exchange_rate
+    type: flow
+    dependsOn:
+        - hdfs_to_ods_dsr_month
+    nodes:
+    -   name: dwd_dim_exchange_rate
+        type: command
+        config:
+            command: sh /bscflow/dwd/ods_to_dwd_dim_exchange_rate.sh

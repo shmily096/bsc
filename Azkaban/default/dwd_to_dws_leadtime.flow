@@ -1,0 +1,119 @@
+nodes:
+ -  name: plc_so_domestic_sto_wo_d838
+    # The product life cycle of Sales order, domestic_sto and work order
+    type: command
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_plc_so_sto_wo_daily_trans_d838.sh
+ -  name: plc_so_domestic_sto_wo_d835
+    # The product life cycle of Sales order, domestic_sto and work order of D835
+    type: command
+    dependsOn: 
+        - plc_so_domestic_sto_wo_d838
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_plc_so_sto_wo_daily_trans_d835.sh
+ -  name: plc_work_order
+    type: command
+    dependsOn: 
+        - plc_so_domestic_sto_wo_d835
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_plc_wo_daily_trans.sh
+ -  name: plc_sales_order
+    type: command
+    dependsOn: 
+        - plc_so_domestic_sto_wo_d835
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_plc_so_daily_trans.sh
+ -  name: plc_import_export
+    type: command
+    dependsOn: 
+        - plc_so_domestic_sto_wo_d835
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_plc_import_export_daily_trans.sh
+ -  name: plc_domestic_sto
+    type: command
+    dependsOn: 
+        - plc_so_domestic_sto_wo_d835
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_plc_domestic_sto_daily_trans.sh
+ -  name: product_putaway_leadtime_slc
+    type: command
+    dependsOn: 
+        - plc_so_domestic_sto_wo_d835
+        - plc_work_order
+        - plc_sales_order
+        - plc_import_export
+        - plc_domestic_sto
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_product_putaway_leadtime_slc_daily_trans.sh
+ -  name: product_putaway_leadtime_yh
+    type: command
+    dependsOn: 
+        - plc_so_domestic_sto_wo_d835
+        - plc_work_order
+        - plc_sales_order
+        - plc_import_export
+        - plc_domestic_sto
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_product_putaway_leadtime_yh_daily_trans.sh
+ -  name: import_export_daily_trans
+    type: command
+    dependsOn: 
+        - plc_so_domestic_sto_wo_d835
+        - plc_import_export
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_import_export_daily_trans.sh
+ -  name: order_proce_by_cust_level3
+    type: command
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_order_proce_custlev3_daily_trans.sh
+ -  name: order_proce_by_division
+    type: command
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_order_proce_division_daily_trans.sh
+ -  name: order_proce_by_item_type
+    type: command
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_order_proce_tob_daily_trans.sh
+ -  name: plant_delivery_processing
+    type: command
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_plant_delivery_processing_daily_trans.sh
+ -  name: product_life_cycle
+    type: command
+    dependsOn: 
+        - plc_so_domestic_sto_wo_d835
+        - plc_work_order
+        - plc_sales_order
+        - plc_import_export
+        - plc_domestic_sto
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_product_life_cycle.sh
+ -  name: leadtime_by_t1_plant
+    type: command
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_t1_plant_trans.sh
+ -  name: leadtime_by_forwarder
+    type: command
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_forwarder_daily_trans.sh
+ -  name: lifecycle_leadtime_slc
+    type: command
+    dependsOn: 
+        - plc_work_order
+        - plc_sales_order
+        - plc_import_export
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_lifecycle_leadtime_slc_daily_trans.sh
+ -  name: lifecycle_leadtime_yh
+    type: command
+    dependsOn: 
+        - plc_work_order
+        - plc_sales_order
+        - plc_import_export
+        - plc_domestic_sto
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_lifecycle_leadtime_yh_daily_trans.sh
+ -  name: sale_order_leadtime
+    type: command
+    config:
+        command: sh /bscflow/dws/dwd_to_dws_sale_order_leadtime_daily_trans.sh

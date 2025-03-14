@@ -1,0 +1,68 @@
+nodes:
+ -  name: dsr_dealer_quarter_trans_topic
+    type: command
+    config:
+        command: sh /bscflow/dwt/dws_to_dwt_dsr_dealer_quarter_trans.sh
+ -  name: product_putaway_leadtime_slc_topic
+    type: command
+    config:
+        command: sh /bscflow/dwt/dws_dwt_product_putaway_leadtime_slc_topic.sh
+ -  name: product_putaway_leadtime_yh_topic
+    type: command
+    config:
+        command: sh /bscflow/dwt/dws_to_dwt_product_putaway_leadtime_yh_topic.sh
+ -  name: imported_topic
+    type: command
+    config:
+        command: sh /bscflow/dwt/dws_to_dwt_imported_topic.sh
+ -  name: order_proce_custlev3_topic
+    type: command
+    config:
+        command: sh /bscflow/dwt/dws_to_dwt_order_proce_custlev3_topic.sh
+ -  name: order_proce_division_topic
+    type: command
+    config:
+        command: sh /bscflow/dwt/dws_to_dwt_order_proce_division_topic.sh
+ -  name: order_proce_item_type_topic
+    type: command
+    config:
+        command: sh /bscflow/dwt/dws_to_dwt_order_proce_tob_topic.sh
+ -  name: plant_delivery_processing_topic
+    type: command
+    config:
+        command: sh /bscflow/dwt/dws_to_dwt_plant_delivery_processing_topic.sh
+ -  name: plant_topic
+    type: command
+    config:
+        command: sh /bscflow/dwt/dws_to_dwt_plant_topic.sh
+ -  name: sale_order_leadtime_topic
+    type: command
+    config:
+        command: sh /bscflow/dwt/dws_to_dwt_sale_order_leadtime_topic.sh
+ -  name: lifecycle_slc_summarize
+    type: command
+    config:
+        command: sh /bscflow/dwt/dws_to_dwt_lifecycle_slc_summarize_topic.sh
+ -  name: lifecycle_yh_summarize
+    type: command
+    config:
+        command: sh /bscflow/dwt/dws_to_dwt_lifecycle_yh_summarize_topic.sh
+ -  name: lifecycle_slcyh_summarize
+    type: command
+    dependsOn: 
+        - lifecycle_slc_summarize
+        - lifecycle_yh_summarize
+    config:
+        command: sh /bscflow/dwt/dws_to_dwt_lifecycle_slcyh_summarize_topic.sh
+ -  name: lifecycle_leadtime_yh
+    type: command
+    config:
+        command: sh /bscflow/dwt/dws_to_dwt_lifecycle_leadtime_yh_topic.sh
+ -  name: lifecycle_leadtime_slc
+    type: command
+    config:
+        command: sh /bscflow/dwt/dws_to_dwt_lifecycle_leadtime_slc_topic.sh
+ -  name: lifecycle_leadtime_division
+    type: command
+    config:
+        command: sh /bscflow/dwt/dws_to_dwt_lifecycle_leadtime_division_slcyh.sh
