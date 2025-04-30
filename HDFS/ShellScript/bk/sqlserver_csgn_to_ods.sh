@@ -27,7 +27,7 @@ this_year=`date -d "${sync_date}" +%Y-01`
 current_date=$(date +"%Y-%m-%d")  
   
 # 获取上个月的日期（减去一个月）  
-last_month_date=$(date -d "$current_date -1 month" +"%Y-%m") 
+last_month_date=$(date -d "$sync_date -1 month" +"%Y-%m") 
 
 #last_month_date='2024-05'
 
@@ -175,7 +175,7 @@ sync_ods_trans_salesdealerinventory() {
                                                             InventoryL3
                                                             FROM APP_OPS.dbo.TRANS_SalesDealerInventory 
                                                             where 1=1 and
-                                                            CAST(year AS VARCHAR(4)) + '-' +   RIGHT('0' + CAST(month AS VARCHAR(2)), 2)='$last_month_date' 
+                                                            format(DATEFROMPARTS([YEAR],  [MONTH], 1),'yyyy-MM')='$last_month_date' 
                                                             "
 											}
 
@@ -263,13 +263,63 @@ sync_ods_kpi_complaint() {
                                                 and ClosedYearMonth >'202312'"
 											}
 
+sync_trans_ctmshipmentstatus_port() {
+    sync_data_sqlserver "trans_ctmshipmentstatus_port" "SELECT 
+                                                    DataID, 
+                                                    UpdateDT, 
+                                                    Active, 
+                                                    WorkNumber, 
+                                                    ShipmentInternalNumber, 
+                                                    MasterBillNo, 
+                                                    HouseWaybillNo, 
+                                                    ImportExportFlag, 
+                                                    ShipmentType, 
+                                                    EmergencySigns, 
+                                                    Merchandiser, 
+                                                    VoucherMaker, 
+                                                    AbnormalCauses1, 
+                                                    AbnormalCauses2, 
+                                                    InspectionMark1, 
+                                                    InspectionMark2, 
+                                                    InspectionMark3, 
+                                                    Remark, 
+                                                    Quantity, 
+                                                    GrossWeight, 
+                                                    CommericalInvoce, 
+                                                    ForwarderServiceLevel, 
+                                                    Department, 
+                                                    Forwording, 
+                                                    CountryArea, 
+                                                    TransportationType, 
+                                                    CustomsSupervisionCertificate, 
+                                                    CommodityInspectionDemand, 
+                                                    CustomizedCertificate, 
+                                                    ETD, 
+                                                    ETA, 
+                                                    ReviseETD, 
+                                                    ReviseETA, 
+                                                    ActualArrivalTime, 
+                                                    T1PickupDate
+                                                    FROM APP_OPS.dbo.TRANS_CTMShipmentStatus_Port
+						                            where 1=1"
+											}
+
 
 # 按业务分类同步数据
 if [ "$1"x = "csgn"x ];then
 	echo "$1 only run"
 	sync_ods_trans_csgn_order
     sync_ods_trans_csgn_t2 
-    sync_ods_trans_salesdealerinventory
+    query_dealer="select count(1)  FROM TRANS_SalesDealerInventory  WHERE format(DATEFROMPARTS([YEAR],  [MONTH], 1),'yyyy-MM')='$last_month_date'  "
+    result_dealer=$(sqoop eval \
+    --connect "$connect_str_sqlserver" \
+    --query "${query_dealer}")
+    value_dealer=$(echo $result_dealer | awk 'END {a_scrap_cost=$(NF-2)} END {print a_scrap_cost}')
+    if [[ $value_dealer -eq 0 ]]; then
+        echo "TRANS_SalesDealerInventory $value_dealer date is count is 0 then not run。"
+    else
+	    sync_ods_trans_salesdealerinventory
+    fi
     sync_ods_trans_consignmenttracking
     sync_ods_trans_consignmentlist
     # sync_ods_mdm_materialmaster
@@ -278,7 +328,16 @@ elif [ "$1"x = "t2"x ];then
 	sync_ods_trans_csgn_t2
 elif [ "$1"x = "sales"x ];then
     echo " $1 only run"
-	sync_ods_trans_salesdealerinventory
+    query_dealer="select count(1)  FROM TRANS_SalesDealerInventory  WHERE format(DATEFROMPARTS([YEAR],  [MONTH], 1),'yyyy-MM')='$last_month_date'  "
+    result_dealer=$(sqoop eval \
+    --connect "$connect_str_sqlserver" \
+    --query "${query_dealer}")
+    value_dealer=$(echo $result_dealer | awk 'END {a_scrap_cost=$(NF-2)} END {print a_scrap_cost}')
+    if [[ $value_dealer -eq 0 ]]; then
+        echo "TRANS_SalesDealerInventory $value_dealer date is count is 0 then not run。"
+    else
+	    sync_ods_trans_salesdealerinventory
+    fi
 elif [ "$1"x = "tracking"x ];then
     echo " $1 only run"
 	sync_ods_trans_consignmenttracking
@@ -288,6 +347,10 @@ elif [ "$1"x = "list"x ];then
 elif [ "$1"x = "complaint"x ];then
     echo " $1 only run"
 	sync_ods_kpi_complaint
+elif [ "$1"x = "trans_ctmshipmentstatus_port"x ];then
+    echo " $1 only run"
+	echo "$sync_date  ok"
+	sync_trans_ctmshipmentstatus_port
 else
     echo "failed run"
 
@@ -341,6 +404,12 @@ into table ${target_db_name}.ods_kpi_complaint
 partition(dt='$sync_date');
 "
 
+ods_trans_ctmshipmentstatus_port_sql="
+load data inpath '/bsc/origin_data/$origin_db_name/trans_ctmshipmentstatus_port/$sync_date' overwrite
+into table ${target_db_name}.ods_trans_ctmshipmentstatus_port
+partition(dt='$sync_date');
+"
+
 # 2. 执行加载数据SQL
 if [ "$1"x = "csgn"x ];then
 	echo "$1 only run"
@@ -364,6 +433,10 @@ elif [ "$1"x = "list"x ];then
 elif [ "$1"x = "complaint"x ];then
     echo " $1 only run"
 	$hive -e"$ods_kpi_complaint_sql"
+elif [ "$1"x = "trans_ctmshipmentstatus_port"x ];then
+    echo " $1 only run"
+	echo "$sync_date  ok"
+	$hive -e"$ods_trans_ctmshipmentstatus_port_sql"
 else
     echo "failed run"
 

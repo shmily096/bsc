@@ -62,6 +62,48 @@ sync_trans_delivery_intrans_info() {
                                     where format(UpdateDT, 'yyyy-MM-dd')='$sync_date'
 						 "
 											}
+
+sync_trans_ctmshipmentstatus_port() {
+    sync_data_sqlserver "trans_ctmshipmentstatus_port" "SELECT 
+                                                    DataID, 
+                                                    UpdateDT, 
+                                                    Active, 
+                                                    WorkNumber, 
+                                                    ShipmentInternalNumber, 
+                                                    MasterBillNo, 
+                                                    HouseWaybillNo, 
+                                                    ImportExportFlag, 
+                                                    ShipmentType, 
+                                                    EmergencySigns, 
+                                                    Merchandiser, 
+                                                    VoucherMaker, 
+                                                    AbnormalCauses1, 
+                                                    AbnormalCauses2, 
+                                                    InspectionMark1, 
+                                                    InspectionMark2, 
+                                                    InspectionMark3, 
+                                                    Remark, 
+                                                    Quantity, 
+                                                    GrossWeight, 
+                                                    CommericalInvoce, 
+                                                    ForwarderServiceLevel, 
+                                                    Department, 
+                                                    Forwording, 
+                                                    CountryArea, 
+                                                    TransportationType, 
+                                                    CustomsSupervisionCertificate, 
+                                                    CommodityInspectionDemand, 
+                                                    CustomizedCertificate, 
+                                                    ETD, 
+                                                    ETA, 
+                                                    ReviseETD, 
+                                                    ReviseETA, 
+                                                    ActualArrivalTime, 
+                                                    T1PickupDate
+                                                    FROM APP_OPS.dbo.TRANS_CTMShipmentStatus_Port
+						 "
+											}
+
 # 按业务分类同步数据
 if [ "$1"x = "trans_openordercn"x ];then
 	echo "$1 only run"
@@ -70,6 +112,10 @@ elif [ "$1"x = "trans_delivery_intrans"x ];then
     echo " $1 only run"
 	echo "$sync_date  ok"
 	sync_trans_delivery_intrans_info
+elif [ "$1"x = "trans_ctmshipmentstatus_port"x ];then
+    echo " $1 only run"
+	echo "$sync_date  ok"
+	sync_trans_ctmshipmentstatus_port
 else
     echo "failed run"
 
@@ -93,6 +139,13 @@ load data inpath '/bsc/origin_data/$origin_db_name/trans_delivery_intrans/$sync_
 into table ${target_db_name}.ods_trans_delivery_intrans
 partition(dt='$sync_date');
 "
+
+ods_trans_ctmshipmentstatus_port_sql="
+load data inpath '/bsc/origin_data/$origin_db_name/trans_ctmshipmentstatus_port/$sync_date' overwrite
+into table ${target_db_name}.ods_trans_ctmshipmentstatus_port
+partition(dt='$sync_date');
+"
+
 # 2. 执行加载数据SQL
 if [ "$1"x = "trans_openordercn"x ];then
 	echo "$1 only run"
@@ -101,6 +154,10 @@ elif [ "$1"x = "trans_delivery_intrans"x ];then
     echo " $1 only run"
 	echo "$sync_date  ok"
 	$hive -e"$ods_trans_delivery_intrans_sql"
+elif [ "$1"x = "trans_ctmshipmentstatus_port"x ];then
+    echo " $1 only run"
+	echo "$sync_date  ok"
+	$hive -e"$ods_trans_ctmshipmentstatus_port_sql"
 else
     echo "failed run"
 

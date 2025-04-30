@@ -390,7 +390,7 @@ where a.plant ='D815' and a.dt='$ods_trans_twinventory_consignment_maxdt';
 
 delete_tmp="
 drop table tmp_dwd_calendar_right15_workday;
-alter TABLE ods_trans_twinventory_consignment drop partition (dt='$last_month_date');
+----alter TABLE ods_trans_twinventory_consignment drop partition (dt='$last_month_date');
 ----drop table tmp_dwd_dim_material;
 ----drop table tmp_dwd_dim_customer;
 ----drop table tmp_bsc_lp_price;
@@ -402,3 +402,4 @@ $hive -e "$sto_sql"
 echo "two $delete_tmp"
 $hive -e "$delete_tmp"
 echo "End syncing dwd_trans_csgn_clear data into DWS layer on ${sync_date} .................."
+sh /bscflow/ods/remove_ods_dp.sh ods_trans_twinventory_consignment -37 -30

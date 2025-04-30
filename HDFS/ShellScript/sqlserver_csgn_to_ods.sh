@@ -27,7 +27,7 @@ this_year=`date -d "${sync_date}" +%Y-01`
 current_date=$(date +"%Y-%m-%d")  
   
 # 获取上个月的日期（减去一个月）  
-last_month_date=$(date -d "$current_date -1 month" +"%Y-%m") 
+last_month_date=$(date -d "$sync_date -1 month" +"%Y-%m") 
 
 #last_month_date='2024-05'
 
@@ -175,7 +175,7 @@ sync_ods_trans_salesdealerinventory() {
                                                             InventoryL3
                                                             FROM APP_OPS.dbo.TRANS_SalesDealerInventory 
                                                             where 1=1 and
-                                                            CAST(year AS VARCHAR(4)) + '-' +   RIGHT('0' + CAST(month AS VARCHAR(2)), 2)='$last_month_date' 
+                                                            format(DATEFROMPARTS([YEAR],  [MONTH], 1),'yyyy-MM')='$last_month_date' 
                                                             "
 											}
 
@@ -263,127 +263,45 @@ sync_ods_kpi_complaint() {
                                                 and ClosedYearMonth >'202312'"
 											}
 
-# ods_mdm_materialmaster_marc
-sync_ods_mdm_materialmaster_marc() {
-    sync_data_sqlserver "ods_mdm_materialmaster_marc" "select 
-  	                                            Material, 
-                                                Plant, 
-                                                CommImpCode, 
-                                                ProfitCenter, 
-                                                LoadingGroup, 
-                                                AvailCheck, 
-                                                SerialNoProfile, 
-                                                SourceList, 
-                                                PostToInspStk, 
-                                                StorageLocationEP, 
-                                                PSMatlStatus, 
-                                                LotSize, 
-                                                SpecProcurement, 
-                                                Procurement, 
-                                                MinLotSze, 
-                                                MaxLotSize, 
-                                                RoundingValue, 
-                                                FixedLotSize, 
-                                                PlDeliveryTime, 
-                                                GRProcTime, 
-                                                SpecProcType, 
-                                                MRPType, 
-                                                ReorderPoint, 
-                                                PurchGroup, 
-                                                ControlCode, 
-                                                LogisticsGroup, 
-                                                UpdateDT
-                                                FROM APP_OPS.dbo.MDM_MaterialMaster_MARC 
-                                                where 1=1"
-											}
-
-
-# ods_trans_twinventory_consignment
-sync_ods_trans_twinventory_consignment() {
-    sync_data_sqlserver "ods_trans_twinventory_consignment" "select 
-  	                                            DataID, 
-                                                UpdateDT, 
-                                                ID, 
-                                                Material, 
-                                                Customer, 
-                                                Plant, 
-                                                Batch, 
-                                                CustomerNumber, 
-                                                City, 
-                                                MaterialDescription, 
-                                                Expiration, 
-                                                Available, 
-                                                [Committed], 
-                                                [Type], 
-                                                DeliveryDocNum, 
-                                                Remito, 
-                                                [Posting Date], 
-                                                SalesOrder, 
-                                                OrderDate, 
-                                                MaterialDocument, 
-                                                CustomerPONumber, 
-                                                CustomerMaterialNum, 
-                                                NotaFiscal, 
-                                                BatchDate, 
-                                                SerNr
-                                                FROM APP_OPS.dbo.TRANS_TWInventory_Consignment 
-                                                where 1=1"
-											}
-
-# ods_mdm_upn_mbew
-sync_ods_mdm_upn_mbew() {
-    sync_data_sqlserver "ods_mdm_upn_mbew" "SELECT 
-                                            MATNR, 
-                                            STPRS, 
-                                            PEINH
-                                            FROM APP_OPS.dbo.MDM_UPN_MBEW
-                                            where 1=1"
-											}
-
-# ods_mdm_customermaster
-sync_ods_mdm_customermaster() {
-    sync_data_sqlserver "ods_mdm_customermaster" "SELECT 
-                                            Custome, 
-                                            Name, 
-                                            Name2, 
-                                            City, 
-                                            PostCod, 
-                                            Rg, 
-                                            Searchterm, 
-                                            Street, 
-                                            Telephone1, 
-                                            FaxNumber, 
-                                            Tit, 
-                                            OrBlk, 
-                                            BlB, 
-                                            [Group], 
-                                            Cl, 
-                                            Dlv, 
-                                            Del, 
-                                            Name3, 
-                                            Name4, 
-                                            Distr, 
-                                            B, 
-                                            TranspZone, 
-                                            Cty, 
-                                            DeleteFlag, 
-                                            TFN, 
-                                            TeleboxNumber, 
-                                            PaymentBlock, 
-                                            MasterRecord, 
-                                            TypeofBusiness,
-                                             CreatedBy, 
-                                             CreatedDT, 
-                                             CustomerSales, 
-                                            SAPID, 
-                                            DealerName, 
-                                            DealerType, 
-                                            ParentSAPID, 
-                                            ParentDealerName, 
-                                            ParentDealerType, 
-                                            IsActiveInDMS
-                                            FROM APP_OPS.dbo.MDM_CustomerMaster
-                                            where 1=1"
+sync_trans_ctmshipmentstatus_port() {
+    sync_data_sqlserver "trans_ctmshipmentstatus_port" "SELECT 
+                                                    DataID, 
+                                                    UpdateDT, 
+                                                    Active, 
+                                                    WorkNumber, 
+                                                    ShipmentInternalNumber, 
+                                                    MasterBillNo, 
+                                                    HouseWaybillNo, 
+                                                    ImportExportFlag, 
+                                                    ShipmentType, 
+                                                    EmergencySigns, 
+                                                    Merchandiser, 
+                                                    VoucherMaker, 
+                                                    AbnormalCauses1, 
+                                                    AbnormalCauses2, 
+                                                    InspectionMark1, 
+                                                    InspectionMark2, 
+                                                    InspectionMark3, 
+                                                    Remark, 
+                                                    Quantity, 
+                                                    GrossWeight, 
+                                                    CommericalInvoce, 
+                                                    ForwarderServiceLevel, 
+                                                    Department, 
+                                                    Forwording, 
+                                                    CountryArea, 
+                                                    TransportationType, 
+                                                    CustomsSupervisionCertificate, 
+                                                    CommodityInspectionDemand, 
+                                                    CustomizedCertificate, 
+                                                    ETD, 
+                                                    ETA, 
+                                                    ReviseETD, 
+                                                    ReviseETA, 
+                                                    ActualArrivalTime, 
+                                                    T1PickupDate
+                                                    FROM APP_OPS.dbo.TRANS_CTMShipmentStatus_Port
+						                            where 1=1"
 											}
 
 
@@ -392,19 +310,34 @@ if [ "$1"x = "csgn"x ];then
 	echo "$1 only run"
 	sync_ods_trans_csgn_order
     sync_ods_trans_csgn_t2 
-    sync_ods_trans_salesdealerinventory
+    query_dealer="select count(1)  FROM TRANS_SalesDealerInventory  WHERE format(DATEFROMPARTS([YEAR],  [MONTH], 1),'yyyy-MM')='$last_month_date'  "
+    result_dealer=$(sqoop eval \
+    --connect "$connect_str_sqlserver" \
+    --query "${query_dealer}")
+    value_dealer=$(echo $result_dealer | awk 'END {a_scrap_cost=$(NF-2)} END {print a_scrap_cost}')
+    if [[ $value_dealer -eq 0 ]]; then
+        echo "TRANS_SalesDealerInventory $value_dealer date is count is 0 then not run。"
+    else
+	    sync_ods_trans_salesdealerinventory
+    fi
     sync_ods_trans_consignmenttracking
     sync_ods_trans_consignmentlist
-    sync_ods_kpi_complaint
-    sync_ods_trans_twinventory_consignment
-    sync_ods_mdm_upn_mbew
-    sync_ods_mdm_customermaster
+    sync_trans_ctmshipmentstatus_port
 elif [ "$1"x = "t2"x ];then
     echo " $1 only run"
 	sync_ods_trans_csgn_t2
 elif [ "$1"x = "sales"x ];then
     echo " $1 only run"
-	sync_ods_trans_salesdealerinventory
+    query_dealer="select count(1)  FROM TRANS_SalesDealerInventory  WHERE format(DATEFROMPARTS([YEAR],  [MONTH], 1),'yyyy-MM')='$last_month_date'  "
+    result_dealer=$(sqoop eval \
+    --connect "$connect_str_sqlserver" \
+    --query "${query_dealer}")
+    value_dealer=$(echo $result_dealer | awk 'END {a_scrap_cost=$(NF-2)} END {print a_scrap_cost}')
+    if [[ $value_dealer -eq 0 ]]; then
+        echo "TRANS_SalesDealerInventory $value_dealer date is count is 0 then not run。"
+    else
+	    sync_ods_trans_salesdealerinventory
+    fi
 elif [ "$1"x = "tracking"x ];then
     echo " $1 only run"
 	sync_ods_trans_consignmenttracking
@@ -414,14 +347,10 @@ elif [ "$1"x = "list"x ];then
 elif [ "$1"x = "complaint"x ];then
     echo " $1 only run"
 	sync_ods_kpi_complaint
-elif [ "$1"x = "marc"x ];then
+elif [ "$1"x = "trans_ctmshipmentstatus_port"x ];then
     echo " $1 only run"
-	sync_ods_mdm_materialmaster_marc
-elif [ "$1"x = "hk"x ];then
-    echo " $1 only run"
-	sync_ods_trans_twinventory_consignment
-    sync_ods_mdm_upn_mbew
-    sync_ods_mdm_customermaster
+	echo "$sync_date  ok"
+	sync_trans_ctmshipmentstatus_port
 else
     echo "failed run"
 
@@ -459,7 +388,8 @@ partition(year_mon='$last_month_date');
 
 ods_trans_consignmenttracking_sql="
 load data inpath '/bsc/origin_data/$origin_db_name/ods_trans_consignmenttracking/$sync_date' overwrite
-into table ${target_db_name}.ods_trans_consignmenttracking;
+into table ${target_db_name}.ods_trans_consignmenttracking
+partition(dt='$sync_date');
 "
 
 ods_trans_consignmentlist_sql="
@@ -474,27 +404,9 @@ into table ${target_db_name}.ods_kpi_complaint
 partition(dt='$sync_date');
 "
 
-ods_mdm_materialmaster_marc_sql="
-load data inpath '/bsc/origin_data/$origin_db_name/ods_mdm_materialmaster_marc/$sync_date' overwrite
-into table ${target_db_name}.ods_mdm_materialmaster_marc
-partition(dt='$sync_date');
-"
-
-ods_trans_twinventory_consignment_sql="
-load data inpath '/bsc/origin_data/$origin_db_name/ods_trans_twinventory_consignment/$sync_date' overwrite
-into table ${target_db_name}.ods_trans_twinventory_consignment
-partition(dt='$sync_date');
-"
-
-ods_mdm_upn_mbew_sql="
-load data inpath '/bsc/origin_data/$origin_db_name/ods_mdm_upn_mbew/$sync_date' overwrite
-into table ${target_db_name}.ods_mdm_upn_mbew
-partition(dt='$sync_date');
-"
-
-ods_mdm_customermaster_sql="
-load data inpath '/bsc/origin_data/$origin_db_name/ods_mdm_customermaster/$sync_date' overwrite
-into table ${target_db_name}.ods_mdm_customermaster
+ods_trans_ctmshipmentstatus_port_sql="
+load data inpath '/bsc/origin_data/$origin_db_name/trans_ctmshipmentstatus_port/$sync_date' overwrite
+into table ${target_db_name}.ods_trans_ctmshipmentstatus_port
 partition(dt='$sync_date');
 "
 
@@ -506,10 +418,7 @@ if [ "$1"x = "csgn"x ];then
     $hive -e"$ods_trans_salesdealerinventory_sql"
     $hive -e"$ods_trans_consignmenttracking_sql"
     $hive -e"$ods_trans_consignmentlist_sql"
-    $hive -e"$ods_kpi_complaint_sql"
-    $hive -e"$ods_trans_twinventory_consignment_sql"
-    $hive -e"$ods_mdm_upn_mbew_sql"
-    $hive -e"$ods_mdm_customermaster_sql"
+    $hive -e"$ods_trans_ctmshipmentstatus_port_sql"
 elif [ "$1"x = "t2"x ];then
     echo " $1 only run"
 	$hive -e"$ods_trans_csgn_t2_sql"
@@ -525,14 +434,10 @@ elif [ "$1"x = "list"x ];then
 elif [ "$1"x = "complaint"x ];then
     echo " $1 only run"
 	$hive -e"$ods_kpi_complaint_sql"
-elif [ "$1"x = "marc"x ];then
+elif [ "$1"x = "trans_ctmshipmentstatus_port"x ];then
     echo " $1 only run"
-	$hive -e"$ods_mdm_materialmaster_marc_sql"
-elif [ "$1"x = "hk"x ];then
-    echo " $1 only run"
-	$hive -e"$ods_trans_twinventory_consignment_sql"
-    $hive -e"$ods_mdm_upn_mbew_sql"
-    $hive -e"$ods_mdm_customermaster_sql"
+	echo "$sync_date  ok"
+	$hive -e"$ods_trans_ctmshipmentstatus_port_sql"
 else
     echo "failed run"
 
