@@ -305,7 +305,7 @@ sync_trans_ctmshipmentstatus_port() {
 											}
 
 
-# 按业务分类同步数据
+# 按业务分类同步数据   
 if [ "$1"x = "csgn"x ];then
 	echo "$1 only run"
 	sync_ods_trans_csgn_order
